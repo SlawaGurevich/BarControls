@@ -77,7 +77,7 @@ class PlayerViewController: NSViewController {
     func updateView(with track: Track) {
         self.l_title.stringValue = track.title
         self.l_artist.stringValue = track.artist
-        self.l_totalDuration.stringValue = "\(track.duration / 60):\(track.duration % 60)"
+        self.l_totalDuration.stringValue = "\(track.duration / 60):\( track.duration % 60 < 10 ? "0" : "" )\(track.duration % 60)"
         self.l_coverArt.image = track.coverArt
     }
     
