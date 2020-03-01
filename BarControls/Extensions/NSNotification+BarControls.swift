@@ -12,4 +12,8 @@ extension NSNotification.Name {
     static var TrackDataDidChange: NSNotification.Name {
         return NSNotification.Name(#function)
     }
+
+    static var PlayerPositionDidChange: NSNotification.Name {
+        return NSNotification.Name(#function)
+    }
 }

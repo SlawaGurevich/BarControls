@@ -935,9 +935,11 @@
                         <outlet property="b_nextTrack" destination="xel-oY-Uio" id="vZz-lo-2Ju"/>
                         <outlet property="b_playPause" destination="rKV-nB-gmm" id="LY7-Hc-VTm"/>
                         <outlet property="b_prevTrack" destination="Xbx-7O-pez" id="aDm-a9-lhB"/>
+                        <outlet property="b_progressSlider" destination="G4h-CW-rBb" id="9dx-eO-I14"/>
                         <outlet property="b_shuffleButton" destination="bys-Pa-xpF" id="2ui-vH-qfs"/>
                         <outlet property="l_artist" destination="efB-v0-W4h" id="nm7-p6-gAS"/>
                         <outlet property="l_coverArt" destination="aeK-vx-HQd" id="600-to-ThA"/>
+                        <outlet property="l_currentPosition" destination="ziu-wR-SOg" id="vWy-Ib-TRO"/>
                         <outlet property="l_title" destination="2Y0-FB-piI" id="ikw-0E-muT"/>
                         <outlet property="l_totalDuration" destination="pN7-fh-QPb" id="py3-ur-cKq"/>
                     </connections>

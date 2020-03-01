@@ -62,9 +62,10 @@ class Track: CustomStringConvertible {
                     case "albumName":
                         t_album = metadata.stringValue!
                     case "artwork":
-                        let image = NSImage(data: metadata.dataValue!)!
-                        image.size = NSSize(width: 216, height: 216)
-                        t_coverArt = image
+                        if let image = NSImage(data: metadata.dataValue!) ?? NSImage(named: NSImage.Name("cover-placeholder")) {
+                            image.size = NSSize(width: 216, height: 216)
+                            t_coverArt = image
+                        }
                     default:
                         continue
                 }

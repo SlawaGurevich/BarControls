@@ -19,6 +19,14 @@ class MusicController {
         }
     }
     
+    var currentPlayerPosition: Int = 0 {
+        didSet {
+            if oldValue != currentPlayerPosition {
+                NotificationCenter.post(name: .PlayerPositionDidChange)
+            }
+        }
+    }
+    
     // MARK: - Functions
     func runScript(script: String) {
         NSAppleScript.run(code: script, completionHandler: {_,_,_ in})
@@ -36,13 +44,22 @@ class MusicController {
         runScript(script: NSAppleScript.appleScripts.PrevTrack.rawValue)
     }
     
-    func getTrackData() {
+    func updateData() {
         // Update current track
         NSAppleScript.run(code: NSAppleScript.appleScripts.GetTrackData.rawValue) { (success, output, errors) in
             if success {
                 // Get the new track
                 let newTrack = Track(fromList: output!.listItems())
                 self.currentTrack = newTrack
+            }
+        }
+        
+        NSAppleScript.run(code: NSAppleScript.appleScripts.GetCurrentPlayerPosition.rawValue) { (success, output, errors) in
+            if success {
+                var newPosition = Double(output!.cleanDescription) ?? 0
+                newPosition.round(.down)
+
+                self.currentPlayerPosition = Int(newPosition)
             }
         }
     }

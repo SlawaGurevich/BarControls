@@ -13,10 +13,12 @@ class PlayerViewController: NSViewController {
     @IBOutlet weak var b_prevTrack: NSButton!
     @IBOutlet weak var b_nextTrack: NSButton!
     @IBOutlet weak var b_shuffleButton: NSButton!
+    @IBOutlet weak var b_progressSlider: NSSlider!
     
     @IBOutlet weak var l_title: NSTextField!
     @IBOutlet weak var l_artist: NSTextField!
     @IBOutlet weak var l_coverArt: NSImageCell!
+    @IBOutlet weak var l_currentPosition: NSTextField!
     @IBOutlet weak var l_totalDuration: NSTextField!
     
     var changeObservers: [NSObjectProtocol] = []
@@ -68,6 +70,13 @@ class PlayerViewController: NSViewController {
                 }
             }
         )
+        
+        // Add PlayerPositionDidChange observer
+        changeObservers.append(
+            NotificationCenter.observe(name: .PlayerPositionDidChange) {
+                self.setCurrentPlayerPosition(to: MusicController.shared.currentPlayerPosition)
+            }
+        )
     }
     
     func removeNotificationObservers() {
@@ -79,6 +88,13 @@ class PlayerViewController: NSViewController {
         self.l_artist.stringValue = track.artist
         self.l_totalDuration.stringValue = "\(track.duration / 60):\( track.duration % 60 < 10 ? "0" : "" )\(track.duration % 60)"
         self.l_coverArt.image = track.coverArt
+        self.b_progressSlider.maxValue = Double(track.duration)
+    }
+    
+    // Updates the slider position to the given seconds
+    func setCurrentPlayerPosition(to seconds: Int) {
+        self.b_progressSlider.intValue = Int32(seconds)
+        self.l_currentPosition.stringValue = seconds.intToLiteralDuration
     }
     
 }

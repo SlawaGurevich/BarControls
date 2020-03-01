@@ -20,8 +20,8 @@ class MusicControllerObserver {
             return
         }
         
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { timer in
-            MusicController.shared.getTrackData()
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { timer in
+            MusicController.shared.updateData()
         })
     }
     

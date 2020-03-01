@@ -33,6 +33,24 @@ extension NSAppleScript {
         end tell
         """
         
+        case GetCurrentPlayerPosition = """
+        tell application "Music"
+            if it is running then
+                get player position
+            end if
+        end tell
+        """
+        
+        static func SetCurrentPlayerPosition(_ position: Int) -> String {
+            return """
+            tell application "Music"
+                if it is running then
+                    set player position to \(position)
+                end if
+            end tell
+            """
+        }
+        
         case NextTrack = """
         tell application "Music"
             if it is running then

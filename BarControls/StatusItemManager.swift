@@ -39,7 +39,7 @@ class StatusItemManager: NSObject {
             playerVC = vc
         }
         
-        MusicController.shared.getTrackData()
+        MusicController.shared.updateData()
         
         popover.contentViewController = playerVC
         updateButton()
