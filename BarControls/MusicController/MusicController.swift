@@ -15,6 +15,7 @@ class MusicController {
     var currentTrack: Track? {
         didSet {
 
+            NotificationCenter.post(name: .TrackDataDidChange)
         }
     }
     

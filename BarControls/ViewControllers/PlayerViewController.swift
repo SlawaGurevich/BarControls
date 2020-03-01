@@ -19,6 +19,8 @@ class PlayerViewController: NSViewController {
     @IBOutlet weak var l_coverArt: NSImageCell!
     @IBOutlet weak var l_totalDuration: NSTextField!
     
+    var changeObservers: [NSObjectProtocol] = []
+    
     @IBAction func playPauseClicked(_ sender: Any) {
         MusicController.shared.playPause()
     }
@@ -38,6 +40,13 @@ class PlayerViewController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         
+        let textShadow: NSShadow = NSShadow()
+        textShadow.shadowBlurRadius = 10
+        textShadow.shadowOffset = NSMakeSize(4, 4)
+        textShadow.shadowColor = NSColor.black
+        
+        l_title.shadow = textShadow
+        
         if let track = MusicController.shared.currentTrack {
             updateView(with: track)
         }
@@ -46,6 +55,23 @@ class PlayerViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        
+        addNotificationObservers()
+    }
+    
+    // MARK: - Functions
+    func addNotificationObservers() {
+        changeObservers.append(
+            NotificationCenter.observe(name: .TrackDataDidChange) {
+                if let track = MusicController.shared.currentTrack {
+                    self.updateView(with: track)
+                }
+            }
+        )
+    }
+    
+    func removeNotificationObservers() {
+        
     }
     
     func updateView(with track: Track) {

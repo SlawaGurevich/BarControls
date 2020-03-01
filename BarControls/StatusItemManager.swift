@@ -9,9 +9,12 @@
 import Cocoa
 
 class StatusItemManager: NSObject {
-    var statusItem: NSStatusItem?
+    static let shared = StatusItemManager()
+    
+    var statusItem: NSStatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     var popover: NSPopover?
     var playerVC: PlayerViewController?
+    var trackDataDidChangeObserver: NSObjectProtocol?
     
     override init() {
         super.init()
@@ -21,16 +24,14 @@ class StatusItemManager: NSObject {
     }
     
     fileprivate func initStatusItem() {
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        statusItem.button?.title = "Some Song"
         
-        statusItem?.button?.title = "Some Song"
-        
-        statusItem?.button?.target = self
-        statusItem?.button?.action = #selector(showPlayerVC)
+        statusItem.button?.target = self
+        statusItem.button?.action = #selector(showPlayerVC)
     }
     
     @objc func showPlayerVC() {
-        guard let popover = popover, let button = statusItem?.button else { return }
+        guard let popover = popover, let button = statusItem.button else { return }
         
         if playerVC == nil {
             let storyboard = NSStoryboard(name: "Main", bundle: nil)
@@ -41,9 +42,36 @@ class StatusItemManager: NSObject {
         MusicController.shared.getTrackData()
         
         popover.contentViewController = playerVC
+        updateButton()
         popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
     }
     
+    func initManager() {
+        print("initManager")
+        updateButton()
+        
+        trackDataDidChangeObserver = NotificationCenter.observe(name: .TrackDataDidChange) {
+            self.updateButton()
+        }
+    }
+    
+    func deinitManager() {
+        if let observer = trackDataDidChangeObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+    
+    func updateButton() {
+        if let button = statusItem.button {
+            if let track = MusicController.shared.currentTrack {
+                let title: String = track.title
+                let artist: String = track.artist
+                
+                button.title = "\(artist) - \(title)"
+            }
+        }
+    }
+
     fileprivate func initPopover() {
         popover = NSPopover()
         

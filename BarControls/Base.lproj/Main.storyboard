@@ -806,7 +806,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="176" id="RlF-wj-NFc"/>
                                 </constraints>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Track Title" id="tuP-Py-QfJ">
+                                <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" alignment="center" title="Track Title" id="tuP-Py-QfJ">
                                     <font key="font" metaFont="system" size="16"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

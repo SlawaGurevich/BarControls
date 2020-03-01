@@ -14,7 +14,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        statusItemManager = StatusItemManager()
+        MusicControllerObserver.shared.start()
+        StatusItemManager.shared.initManager()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
