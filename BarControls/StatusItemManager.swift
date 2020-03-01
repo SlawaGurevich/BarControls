@@ -38,6 +38,8 @@ class StatusItemManager: NSObject {
             playerVC = vc
         }
         
+        MusicController.shared.getTrackData()
+        
         popover.contentViewController = playerVC
         popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
     }

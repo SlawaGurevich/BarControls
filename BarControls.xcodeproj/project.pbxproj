@@ -10,6 +10,8 @@
 		07410DA224008B4100CBF48E /* NSAppleScript+BarControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07410DA124008B4100CBF48E /* NSAppleScript+BarControls.swift */; };
 		07410DA524008BE100CBF48E /* MusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07410DA424008BE100CBF48E /* MusicController.swift */; };
 		07410DA824008D1700CBF48E /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07410DA724008D1700CBF48E /* PlayerViewController.swift */; };
+		076F331F240B263F002BAEDF /* NSAppleEventDescriptor+BarControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076F331E240B263F002BAEDF /* NSAppleEventDescriptor+BarControls.swift */; };
+		076F3321240B27D6002BAEDF /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076F3320240B27D6002BAEDF /* Track.swift */; };
 		07C6DA232407C8D6004C6F41 /* StatusItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C6DA222407C8D6004C6F41 /* StatusItemManager.swift */; };
 		07F2D58424004DA900762407 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F2D58324004DA900762407 /* AppDelegate.swift */; };
 		07F2D58624004DA900762407 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F2D58524004DA900762407 /* ViewController.swift */; };
@@ -21,6 +23,8 @@
 		07410DA124008B4100CBF48E /* NSAppleScript+BarControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAppleScript+BarControls.swift"; sourceTree = "<group>"; };
 		07410DA424008BE100CBF48E /* MusicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicController.swift; sourceTree = "<group>"; };
 		07410DA724008D1700CBF48E /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		076F331E240B263F002BAEDF /* NSAppleEventDescriptor+BarControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAppleEventDescriptor+BarControls.swift"; sourceTree = "<group>"; };
+		076F3320240B27D6002BAEDF /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		07C6DA222407C8D6004C6F41 /* StatusItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemManager.swift; sourceTree = "<group>"; };
 		07F2D58024004DA900762407 /* BarControls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarControls.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07F2D58324004DA900762407 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +50,7 @@
 			isa = PBXGroup;
 			children = (
 				07410DA124008B4100CBF48E /* NSAppleScript+BarControls.swift */,
+				076F331E240B263F002BAEDF /* NSAppleEventDescriptor+BarControls.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -54,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				07410DA424008BE100CBF48E /* MusicController.swift */,
+				076F3320240B27D6002BAEDF /* Track.swift */,
 			);
 			path = MusicController;
 			sourceTree = "<group>";
@@ -172,8 +178,10 @@
 				07C6DA232407C8D6004C6F41 /* StatusItemManager.swift in Sources */,
 				07410DA224008B4100CBF48E /* NSAppleScript+BarControls.swift in Sources */,
 				07410DA524008BE100CBF48E /* MusicController.swift in Sources */,
+				076F3321240B27D6002BAEDF /* Track.swift in Sources */,
 				07F2D58624004DA900762407 /* ViewController.swift in Sources */,
 				07F2D58424004DA900762407 /* AppDelegate.swift in Sources */,
+				076F331F240B263F002BAEDF /* NSAppleEventDescriptor+BarControls.swift in Sources */,
 				07410DA824008D1700CBF48E /* PlayerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

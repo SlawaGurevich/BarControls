@@ -12,6 +12,12 @@ import AppKit
 class MusicController {
     static let shared = MusicController()
     
+    var currentTrack: Track? {
+        didSet {
+
+        }
+    }
+    
     // MARK: - Functions
     func runScript(script: String) {
         NSAppleScript.run(code: script, completionHandler: {_,_,_ in})
@@ -29,10 +35,13 @@ class MusicController {
         runScript(script: NSAppleScript.appleScripts.PrevTrack.rawValue)
     }
     
-    func getCoverArt() {
-        NSAppleScript.run(code: NSAppleScript.appleScripts.GetCoverImage.rawValue) { (success, output, errors) in
+    func getTrackData() {
+        // Update current track
+        NSAppleScript.run(code: NSAppleScript.appleScripts.GetTrackData.rawValue) { (success, output, errors) in
             if success {
-//                self.isPlaying = (output!.data.stringValue == "playing")
+                // Get the new track
+                let newTrack = Track(fromList: output!.listItems())
+                self.currentTrack = newTrack
             }
         }
     }

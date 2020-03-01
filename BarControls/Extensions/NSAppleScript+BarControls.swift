@@ -49,10 +49,10 @@ extension NSAppleScript {
         end tell
         """
         
-        case GetCoverImage = """
+        case GetTrackData = """
         tell application "Music"
             if it is running then
-                get artwork 1 of current track
+                get properties of current track
             end if
         end tell
         """

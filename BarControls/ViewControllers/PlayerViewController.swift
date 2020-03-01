@@ -14,6 +14,11 @@ class PlayerViewController: NSViewController {
     @IBOutlet weak var b_nextTrack: NSButton!
     @IBOutlet weak var b_shuffleButton: NSButton!
     
+    @IBOutlet weak var l_title: NSTextField!
+    @IBOutlet weak var l_artist: NSTextField!
+    @IBOutlet weak var l_coverArt: NSImageCell!
+    @IBOutlet weak var l_totalDuration: NSTextField!
+    
     @IBAction func playPauseClicked(_ sender: Any) {
         MusicController.shared.playPause()
     }
@@ -27,12 +32,27 @@ class PlayerViewController: NSViewController {
     }
     
     @IBAction func toggleShuffle(_ sender: Any) {
-        MusicController.shared.getCoverArt()
+        
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        
+        if let track = MusicController.shared.currentTrack {
+            updateView(with: track)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+    }
+    
+    func updateView(with track: Track) {
+        self.l_title.stringValue = track.title
+        self.l_artist.stringValue = track.artist
+        self.l_totalDuration.stringValue = "\(track.duration / 60):\(track.duration % 60)"
+        self.l_coverArt.image = track.coverArt
     }
     
 }
