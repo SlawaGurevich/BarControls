@@ -16,6 +16,11 @@
 		076F3325240BDF8F002BAEDF /* NSNotification+BarControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076F3324240BDF8F002BAEDF /* NSNotification+BarControls.swift */; };
 		076F3327240BE5BA002BAEDF /* MusicControllerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076F3326240BE5BA002BAEDF /* MusicControllerObserver.swift */; };
 		076F3329240BEDB6002BAEDF /* Int+BarControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076F3328240BEDB6002BAEDF /* Int+BarControls.swift */; };
+		07C30A0C240C64D300D1FC4F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C30A0B240C64D300D1FC4F /* SettingsViewController.swift */; };
+		07C30A0E240C695100D1FC4F /* GeneralPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C30A0D240C695100D1FC4F /* GeneralPreferencesView.swift */; };
+		07C30A10240C695B00D1FC4F /* DisplayPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C30A0F240C695B00D1FC4F /* DisplayPreferencesView.swift */; };
+		07C30A12240C699700D1FC4F /* AboutPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C30A11240C699700D1FC4F /* AboutPreferencesView.swift */; };
+		07C30A14240C72C500D1FC4F /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C30A13240C72C500D1FC4F /* SettingsWindowController.swift */; };
 		07C6DA232407C8D6004C6F41 /* StatusItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C6DA222407C8D6004C6F41 /* StatusItemManager.swift */; };
 		07F2D58424004DA900762407 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F2D58324004DA900762407 /* AppDelegate.swift */; };
 		07F2D58624004DA900762407 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F2D58524004DA900762407 /* ViewController.swift */; };
@@ -33,6 +38,11 @@
 		076F3324240BDF8F002BAEDF /* NSNotification+BarControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+BarControls.swift"; sourceTree = "<group>"; };
 		076F3326240BE5BA002BAEDF /* MusicControllerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicControllerObserver.swift; sourceTree = "<group>"; };
 		076F3328240BEDB6002BAEDF /* Int+BarControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+BarControls.swift"; sourceTree = "<group>"; };
+		07C30A0B240C64D300D1FC4F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		07C30A0D240C695100D1FC4F /* GeneralPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferencesView.swift; sourceTree = "<group>"; };
+		07C30A0F240C695B00D1FC4F /* DisplayPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPreferencesView.swift; sourceTree = "<group>"; };
+		07C30A11240C699700D1FC4F /* AboutPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPreferencesView.swift; sourceTree = "<group>"; };
+		07C30A13240C72C500D1FC4F /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
 		07C6DA222407C8D6004C6F41 /* StatusItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemManager.swift; sourceTree = "<group>"; };
 		07F2D58024004DA900762407 /* BarControls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarControls.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07F2D58324004DA900762407 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,9 +89,30 @@
 		07410DA624008CD000CBF48E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				07C30A08240C621A00D1FC4F /* Settings */,
 				07410DA724008D1700CBF48E /* PlayerViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		078BFA22240D0C29002ED69B /* StatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				07C6DA222407C8D6004C6F41 /* StatusItemManager.swift */,
+			);
+			path = StatusBar;
+			sourceTree = "<group>";
+		};
+		07C30A08240C621A00D1FC4F /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				07C30A0B240C64D300D1FC4F /* SettingsViewController.swift */,
+				07C30A0D240C695100D1FC4F /* GeneralPreferencesView.swift */,
+				07C30A0F240C695B00D1FC4F /* DisplayPreferencesView.swift */,
+				07C30A11240C699700D1FC4F /* AboutPreferencesView.swift */,
+				07C30A13240C72C500D1FC4F /* SettingsWindowController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		07F2D57724004DA900762407 = {
@@ -103,10 +134,10 @@
 		07F2D58224004DA900762407 /* BarControls */ = {
 			isa = PBXGroup;
 			children = (
+				078BFA22240D0C29002ED69B /* StatusBar */,
 				07410DA324008BD000CBF48E /* MusicController */,
 				07410DA624008CD000CBF48E /* ViewControllers */,
 				07410DA024008B1F00CBF48E /* Extensions */,
-				07C6DA222407C8D6004C6F41 /* StatusItemManager.swift */,
 				07F2D58324004DA900762407 /* AppDelegate.swift */,
 				07F2D58524004DA900762407 /* ViewController.swift */,
 				07F2D58724004DA900762407 /* Assets.xcassets */,
@@ -191,13 +222,18 @@
 				076F3323240BDD6B002BAEDF /* NotificationCenter+BarControls.swift in Sources */,
 				07410DA224008B4100CBF48E /* NSAppleScript+BarControls.swift in Sources */,
 				076F3329240BEDB6002BAEDF /* Int+BarControls.swift in Sources */,
+				07C30A0E240C695100D1FC4F /* GeneralPreferencesView.swift in Sources */,
 				076F3327240BE5BA002BAEDF /* MusicControllerObserver.swift in Sources */,
 				07410DA524008BE100CBF48E /* MusicController.swift in Sources */,
 				076F3321240B27D6002BAEDF /* Track.swift in Sources */,
 				07F2D58624004DA900762407 /* ViewController.swift in Sources */,
+				07C30A0C240C64D300D1FC4F /* SettingsViewController.swift in Sources */,
 				076F3325240BDF8F002BAEDF /* NSNotification+BarControls.swift in Sources */,
+				07C30A14240C72C500D1FC4F /* SettingsWindowController.swift in Sources */,
 				07F2D58424004DA900762407 /* AppDelegate.swift in Sources */,
 				076F331F240B263F002BAEDF /* NSAppleEventDescriptor+BarControls.swift in Sources */,
+				07C30A12240C699700D1FC4F /* AboutPreferencesView.swift in Sources */,
+				07C30A10240C695B00D1FC4F /* DisplayPreferencesView.swift in Sources */,
 				07410DA824008D1700CBF48E /* PlayerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,6 +372,7 @@
 				CODE_SIGN_ENTITLEMENTS = BarControls/BarControls.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = G2AXQ88563;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = BarControls/Info.plist;
@@ -343,6 +380,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.slawagurevich.BarControls;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -356,6 +394,7 @@
 				CODE_SIGN_ENTITLEMENTS = BarControls/BarControls.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = G2AXQ88563;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = BarControls/Info.plist;
@@ -363,6 +402,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.slawagurevich.BarControls;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
