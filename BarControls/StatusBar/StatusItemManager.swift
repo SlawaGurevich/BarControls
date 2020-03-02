@@ -33,17 +33,30 @@ class StatusItemManager: NSObject {
     @objc func showPlayerVC() {
         guard let popover = popover, let button = statusItem.button else { return }
         
-        if playerVC == nil {
-            let storyboard = NSStoryboard(name: "Main", bundle: nil)
-            guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "playerVC")) as? PlayerViewController else { return  }
-            playerVC = vc
+        if !popover.isShown {
+            MusicController.shared.updateData()
+            
+            if playerVC == nil {
+                let storyboard = NSStoryboard(name: "Main", bundle: nil)
+                guard let vc = storyboard.instantiateController(withIdentifier: .init(stringLiteral: "playerVC")) as? PlayerViewController else { return  }
+                playerVC = vc
+            }
+            
+            popover.contentViewController = playerVC
+        
+            updateButton()
+            popover.show(relativeTo: button.window!.contentView!.bounds, of: button.window!.contentView!, preferredEdge: .minY)
+            popover.contentViewController?.view.window?.makeKeyAndOrderFront(nil) // Needed so that the window disappears when clicked somewhere else
+            
+            // Needed so that the window stays where it is when the menu bar is auto-hidden
+            if let window = popover.contentViewController?.view.window {
+                window.parent?.removeChildWindow(window)
+            }
+        
+            NSApp.activate(ignoringOtherApps: true)
+        } else {
+            popover.performClose(self)
         }
-        
-        MusicController.shared.updateData()
-        
-        popover.contentViewController = playerVC
-        updateButton()
-        popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
     }
     
     func initManager() {
@@ -66,7 +79,8 @@ class StatusItemManager: NSObject {
             if let track = MusicController.shared.currentTrack {
                 let title: String = track.title
                 let artist: String = track.artist
-                
+
+                // TO-DO: Keep window from moving
                 button.title = "\(artist) - \(title)"
             }
         }

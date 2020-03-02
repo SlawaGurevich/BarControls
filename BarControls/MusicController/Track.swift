@@ -40,8 +40,6 @@ class Track: CustomStringConvertible {
             }
         }
         
-        print("filepath: \(filepath)")
-        
         if filepath != "" {
             let asset = AVURLAsset(url: NSURL(string: filepath)! as URL)
             

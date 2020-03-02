@@ -27,6 +27,14 @@ class MusicController {
         }
     }
     
+    var isPlaying: Bool = false {
+        didSet {
+            if oldValue != isPlaying {
+                NotificationCenter.post(name: .PlayerStateDidChange)
+            }
+        }
+    }
+    
     // MARK: - Functions
     func runScript(script: String) {
         NSAppleScript.run(code: script, completionHandler: {_,_,_ in})
@@ -51,6 +59,12 @@ class MusicController {
                 // Get the new track
                 let newTrack = Track(fromList: output!.listItems())
                 self.currentTrack = newTrack
+            }
+        }
+        
+        NSAppleScript.run(code: NSAppleScript.appleScripts.GetCurrentPlayerState.rawValue) { (success, output, errors) in
+            if success {
+                self.isPlaying = (output!.data.stringValue == "playing")
             }
         }
         

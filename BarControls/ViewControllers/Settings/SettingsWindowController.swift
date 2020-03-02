@@ -13,5 +13,6 @@ class SettingsWindowController: NSWindowController {
         super.windowDidLoad()
         super.window?.setFrame(NSRect(x: 0, y: 0, width: 480, height: 400), display: true)
         self.window?.center()
+        self.window?.makeKeyAndOrderFront(nil)
     }
 }

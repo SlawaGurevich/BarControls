@@ -41,6 +41,14 @@ extension NSAppleScript {
         end tell
         """
         
+        case GetCurrentPlayerState = """
+        tell application "Music"
+            if it is running then
+                set playerstate to (get player state) as text
+            end if
+        end tell
+        """
+        
         static func SetCurrentPlayerPosition(_ position: Int) -> String {
             return """
             tell application "Music"

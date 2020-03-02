@@ -77,10 +77,25 @@ class PlayerViewController: NSViewController {
                 self.setCurrentPlayerPosition(to: MusicController.shared.currentPlayerPosition)
             }
         )
+        
+        changeObservers.append(
+            NotificationCenter.observe(name: .PlayerStateDidChange) {
+                self.updatePlayerStatus(playing: MusicController.shared.isPlaying)
+            }
+        )
     }
     
     func removeNotificationObservers() {
         
+    }
+    
+    func updatePlayerStatus(playing: Bool) {
+        if playing {
+            b_playPause.image = NSImage(named: NSImage.Name("button-pause"))
+        }
+        else {
+            b_playPause.image = NSImage(named: NSImage.Name("button-play"))
+        }
     }
     
     func updateView(with track: Track) {
@@ -89,6 +104,7 @@ class PlayerViewController: NSViewController {
         self.l_totalDuration.stringValue = "\(track.duration / 60):\( track.duration % 60 < 10 ? "0" : "" )\(track.duration % 60)"
         self.l_coverArt.image = track.coverArt
         self.b_progressSlider.maxValue = Double(track.duration)
+        self.updatePlayerStatus(playing: MusicController.shared.isPlaying)
     }
     
     // Updates the slider position to the given seconds
