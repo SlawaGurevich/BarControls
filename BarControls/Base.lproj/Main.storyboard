@@ -806,7 +806,7 @@
                                     <constraint firstAttribute="width" constant="230" id="8Iy-Pw-QKb"/>
                                 </constraints>
                                 <textFieldCell key="cell" title="Show Popup must be selected by at least one option" id="WAE-lg-Fro">
-                                    <font key="font" metaFont="controlContent" size="11"/>
+                                    <font key="font" metaFont="label" size="11"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -1090,23 +1090,29 @@
                                 <rect key="frame" x="20" y="45" width="176" height="19"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ziu-wR-SOg">
-                                        <rect key="frame" x="-2" y="3" width="22" height="13"/>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" title="1:11" id="MsQ-Zg-7bB">
+                                        <rect key="frame" x="-2" y="3" width="28" height="13"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="XqB-kp-mcA"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="1:11" id="MsQ-Zg-7bB">
                                             <font key="font" metaFont="system" size="10"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pN7-fh-QPb">
-                                        <rect key="frame" x="152" y="3" width="26" height="13"/>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" title="2:22" id="yYi-bD-apu">
+                                        <rect key="frame" x="150" y="3" width="28" height="13"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="soa-Qf-hXk"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="2:22" id="yYi-bD-apu">
                                             <font key="font" metaFont="system" size="10"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="G4h-CW-rBb">
-                                        <rect key="frame" x="21" y="0.0" width="130" height="19"/>
+                                        <rect key="frame" x="27" y="0.0" width="122" height="19"/>
                                         <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="20" tickMarkPosition="above" sliderType="linear" id="9Mi-RI-Tft"/>
                                     </slider>
                                 </subviews>
