@@ -11,6 +11,7 @@
 		07410DA524008BE100CBF48E /* MusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07410DA424008BE100CBF48E /* MusicController.swift */; };
 		07410DA824008D1700CBF48E /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07410DA724008D1700CBF48E /* PlayerViewController.swift */; };
 		07457651240DC613008496F3 /* Data+BarControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07457650240DC613008496F3 /* Data+BarControls.swift */; };
+		07457654240E6F34008496F3 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07457653240E6F34008496F3 /* UserPreferences.swift */; };
 		076F331F240B263F002BAEDF /* NSAppleEventDescriptor+BarControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076F331E240B263F002BAEDF /* NSAppleEventDescriptor+BarControls.swift */; };
 		076F3321240B27D6002BAEDF /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076F3320240B27D6002BAEDF /* Track.swift */; };
 		076F3323240BDD6B002BAEDF /* NotificationCenter+BarControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076F3322240BDD6B002BAEDF /* NotificationCenter+BarControls.swift */; };
@@ -34,6 +35,7 @@
 		07410DA424008BE100CBF48E /* MusicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicController.swift; sourceTree = "<group>"; };
 		07410DA724008D1700CBF48E /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		07457650240DC613008496F3 /* Data+BarControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+BarControls.swift"; sourceTree = "<group>"; };
+		07457653240E6F34008496F3 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		076F331E240B263F002BAEDF /* NSAppleEventDescriptor+BarControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAppleEventDescriptor+BarControls.swift"; sourceTree = "<group>"; };
 		076F3320240B27D6002BAEDF /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		076F3322240BDD6B002BAEDF /* NotificationCenter+BarControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+BarControls.swift"; sourceTree = "<group>"; };
@@ -98,6 +100,18 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		07457652240E6F19008496F3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				07C30A11240C699700D1FC4F /* AboutPreferencesView.swift */,
+				07C30A0F240C695B00D1FC4F /* DisplayPreferencesView.swift */,
+				07C30A0D240C695100D1FC4F /* GeneralPreferencesView.swift */,
+				07C30A0B240C64D300D1FC4F /* SettingsViewController.swift */,
+				07C30A13240C72C500D1FC4F /* SettingsWindowController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		078BFA22240D0C29002ED69B /* StatusBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,11 +123,8 @@
 		07C30A08240C621A00D1FC4F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				07C30A11240C699700D1FC4F /* AboutPreferencesView.swift */,
-				07C30A0F240C695B00D1FC4F /* DisplayPreferencesView.swift */,
-				07C30A0D240C695100D1FC4F /* GeneralPreferencesView.swift */,
-				07C30A0B240C64D300D1FC4F /* SettingsViewController.swift */,
-				07C30A13240C72C500D1FC4F /* SettingsWindowController.swift */,
+				07457652240E6F19008496F3 /* Views */,
+				07457653240E6F34008496F3 /* UserPreferences.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -237,6 +248,7 @@
 				076F3327240BE5BA002BAEDF /* MusicControllerObserver.swift in Sources */,
 				07410DA524008BE100CBF48E /* MusicController.swift in Sources */,
 				07457651240DC613008496F3 /* Data+BarControls.swift in Sources */,
+				07457654240E6F34008496F3 /* UserPreferences.swift in Sources */,
 				076F3321240B27D6002BAEDF /* Track.swift in Sources */,
 				07F2D58624004DA900762407 /* ViewController.swift in Sources */,
 				07C30A0C240C64D300D1FC4F /* SettingsViewController.swift in Sources */,

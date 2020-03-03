@@ -35,9 +35,35 @@ class StatusItemManager: NSObject {
         let event = NSApp.currentEvent!
 
         if event.type == NSEvent.EventType.leftMouseUp {
-           playerShowPopover()
+            switch(UserPreferences.leftClick) {
+                case .showPopup:
+                    playerShowPopover()
+                case .showMenu:
+                    return
+                case .playPause:
+                    playerPlayPause()
+                case .skipTrack:
+                    playerSkipTrack()
+                case .prevTrack:
+                    playerPrevTrack()
+                case .none:
+                    return
+            }
         } else {
-           playerSkipTrack()
+            switch(UserPreferences.rightClick) {
+                case .showPopup:
+                    playerShowPopover()
+                case .showMenu:
+                    return
+                case .playPause:
+                    playerPlayPause()
+                case .skipTrack:
+                    playerSkipTrack()
+                case .prevTrack:
+                    playerPrevTrack()
+                case .none:
+                    return
+            }
         }
     }
     

@@ -685,7 +685,7 @@
             <objects>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="SettingsWindowController" customModule="BarControls" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="BarControls Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="IQv-IB-iLA" userLabel="Preferences" customClass="settings">
+                    <window key="window" title="BarControls Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="IQv-IB-iLA" userLabel="Preferences">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -731,8 +731,8 @@
         <!--General-->
         <scene sceneID="bRB-kW-XcP">
             <objects>
-                <viewController title="General" id="FZV-Zm-WY9" sceneMemberID="viewController">
-                    <view key="view" focusRingType="none" id="SAG-er-BWv" customClass="GeneralPreferencesView" customModule="BarControls" customModuleProvider="target">
+                <viewController title="General" id="FZV-Zm-WY9" customClass="GeneralPreferencesView" customModule="BarControls" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" focusRingType="none" id="SAG-er-BWv">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -744,26 +744,6 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CmD-Xd-IYg">
-                                <rect key="frame" x="228" y="228" width="235" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="230" id="pcN-qc-FR6"/>
-                                </constraints>
-                                <popUpButtonCell key="cell" type="push" title="Show Popup" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="noU-z7-k5C" id="LKw-pJ-5e2">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                    <menu key="menu" title="Left Click" id="E7E-Rq-ouc">
-                                        <items>
-                                            <menuItem title="Show Popup" state="on" id="noU-z7-k5C"/>
-                                            <menuItem title="Show Menu" id="v2g-ly-Qqv"/>
-                                            <menuItem title="Play/Pause" id="X9B-QT-cap"/>
-                                            <menuItem title="Skip Track" id="Svh-hd-diu">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                            </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dk8-93-VkQ">
                                 <rect key="frame" x="145" y="234" width="61" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Left Click" id="Nng-Hd-eAi">
@@ -777,20 +757,29 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="230" id="Bsh-7d-qcb"/>
                                 </constraints>
-                                <popUpButtonCell key="cell" type="push" title="Skip Track" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="FzZ-8G-MwQ" id="YsU-eW-xBO">
+                                <popUpButtonCell key="cell" type="push" title="Show Popup" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="VvT-95-cgz" id="YsU-eW-xBO">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                     <menu key="menu" title="Right Click" id="T2w-xF-Med">
                                         <items>
-                                            <menuItem title="Skip Track" state="on" id="FzZ-8G-MwQ">
+                                            <menuItem title="Show Popup" state="on" id="VvT-95-cgz"/>
+                                            <menuItem title="Show Menu" id="ETK-JQ-sXE"/>
+                                            <menuItem title="Play/Pause" id="mxF-Z3-iiK"/>
+                                            <menuItem title="Skip Track" id="FzZ-8G-MwQ">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
-                                            <menuItem title="Play/Pause" id="mxF-Z3-iiK"/>
-                                            <menuItem title="Show Menu" id="ETK-JQ-sXE"/>
-                                            <menuItem title="Show Popup" id="VvT-95-cgz"/>
+                                            <menuItem title="Previous Track" id="m5g-sU-Dk9">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="None" id="bgB-xV-hxH">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
+                                <connections>
+                                    <action selector="rightClickSelected:" target="FZV-Zm-WY9" id="ENn-3H-ZTP"/>
+                                </connections>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sgB-ry-CJH">
                                 <rect key="frame" x="145" y="203" width="69" height="16"/>
@@ -817,7 +806,7 @@
                                     <constraint firstAttribute="width" constant="230" id="8Iy-Pw-QKb"/>
                                 </constraints>
                                 <textFieldCell key="cell" title="Show Popup must be selected by at least one option" id="WAE-lg-Fro">
-                                    <font key="font" metaFont="menu" size="11"/>
+                                    <font key="font" metaFont="controlContent" size="11"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -829,7 +818,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="quitApplication:" target="SAG-er-BWv" id="UB0-kk-z3b"/>
+                                    <action selector="quitApplication:" target="FZV-Zm-WY9" id="MBe-rp-Mgs"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TFH-t3-xg8">
@@ -839,6 +828,35 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CmD-Xd-IYg">
+                                <rect key="frame" x="228" y="228" width="235" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="230" id="pcN-qc-FR6"/>
+                                </constraints>
+                                <popUpButtonCell key="cell" type="push" title="Show Popup" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="noU-z7-k5C" id="LKw-pJ-5e2">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <menu key="menu" title="Left Click" id="E7E-Rq-ouc">
+                                        <items>
+                                            <menuItem title="Show Popup" state="on" id="noU-z7-k5C"/>
+                                            <menuItem title="Show Menu" id="v2g-ly-Qqv"/>
+                                            <menuItem title="Play/Pause" id="X9B-QT-cap"/>
+                                            <menuItem title="Skip Track" id="Svh-hd-diu">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="Previous Track" id="TNl-PV-vc1">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="None" id="PiR-6h-hNW">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="leftClickSelected:" target="FZV-Zm-WY9" id="aHJ-Gz-KAd"/>
+                                </connections>
+                            </popUpButton>
                         </subviews>
                         <constraints>
                             <constraint firstItem="b6G-el-Cls" firstAttribute="top" secondItem="dPZ-ee-SuE" secondAttribute="bottom" constant="10" id="0GL-Y1-Wk1"/>
@@ -850,10 +868,10 @@
                             <constraint firstItem="iU0-kY-J6q" firstAttribute="leading" secondItem="SAG-er-BWv" secondAttribute="leading" constant="20" id="B2c-RX-GSz"/>
                             <constraint firstItem="CmD-Xd-IYg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Dk8-93-VkQ" secondAttribute="trailing" constant="10" id="EwQ-zc-w6X"/>
                             <constraint firstAttribute="trailing" secondItem="WSE-Ka-7ob" secondAttribute="trailing" constant="20" id="JSV-wz-Htq"/>
+                            <constraint firstItem="CmD-Xd-IYg" firstAttribute="top" secondItem="SAG-er-BWv" secondAttribute="top" constant="18" id="MKA-MH-WvO"/>
                             <constraint firstItem="WSE-Ka-7ob" firstAttribute="leading" secondItem="SAG-er-BWv" secondAttribute="leading" constant="20" id="Mye-yL-0Ka"/>
                             <constraint firstItem="dPZ-ee-SuE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sgB-ry-CJH" secondAttribute="trailing" constant="10" id="QxL-bS-fwt"/>
                             <constraint firstItem="TFH-t3-xg8" firstAttribute="leading" secondItem="iU0-kY-J6q" secondAttribute="trailing" constant="80" id="UbL-Vs-tGZ"/>
-                            <constraint firstItem="CmD-Xd-IYg" firstAttribute="top" secondItem="SAG-er-BWv" secondAttribute="top" constant="18" id="ZsZ-Gm-uvC"/>
                             <constraint firstItem="sgB-ry-CJH" firstAttribute="top" secondItem="Dk8-93-VkQ" secondAttribute="bottom" constant="15" id="aj4-4r-VUF"/>
                             <constraint firstItem="Dk8-93-VkQ" firstAttribute="top" secondItem="SAG-er-BWv" secondAttribute="top" constant="20" id="dds-kn-OhB"/>
                             <constraint firstItem="iU0-kY-J6q" firstAttribute="top" secondItem="WSE-Ka-7ob" secondAttribute="bottom" constant="20" id="e8g-pc-f3q"/>
@@ -865,10 +883,12 @@
                             <constraint firstItem="sgB-ry-CJH" firstAttribute="leading" secondItem="SAG-er-BWv" secondAttribute="leading" constant="147" id="tH9-0H-YnK"/>
                             <constraint firstAttribute="trailing" secondItem="dPZ-ee-SuE" secondAttribute="trailing" constant="20" id="xMo-LZ-xXV"/>
                         </constraints>
-                        <connections>
-                            <outlet property="b_quit" destination="dif-DN-ZsY" id="UX7-d3-vtJ"/>
-                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="b_leftClickDropDown" destination="CmD-Xd-IYg" id="90o-LJ-JJ9"/>
+                        <outlet property="b_quit" destination="dif-DN-ZsY" id="Bdb-za-Vtg"/>
+                        <outlet property="b_rightClickDropDown" destination="dPZ-ee-SuE" id="ASx-BV-YgS"/>
+                    </connections>
                 </viewController>
                 <customObject id="Kcv-aE-2lJ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -877,8 +897,8 @@
         <!--Display-->
         <scene sceneID="zm1-fg-DxX">
             <objects>
-                <viewController title="Display" id="isi-pj-L2H" customClass="Di" sceneMemberID="viewController">
-                    <view key="view" focusRingType="none" id="TPq-7G-Gdy" customClass="DisplayPreferenesView" customModule="BarControls" customModuleProvider="target">
+                <viewController title="Display" id="isi-pj-L2H" sceneMemberID="viewController">
+                    <view key="view" focusRingType="none" id="TPq-7G-Gdy">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -891,21 +911,21 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eMp-XX-T64">
-                                <rect key="frame" x="154" y="232" width="49" height="18"/>
-                                <buttonCell key="cell" type="check" title="Title" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hRO-Aw-OW8">
+                                <rect key="frame" x="154" y="232" width="84" height="18"/>
+                                <buttonCell key="cell" type="check" title="Song Title" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hRO-Aw-OW8">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eUy-gh-vtS">
-                                <rect key="frame" x="219" y="232" width="56" height="18"/>
+                                <rect key="frame" x="254" y="232" width="56" height="18"/>
                                 <buttonCell key="cell" type="check" title="Artist" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="JC4-Lh-N9C">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dao-Kc-nga">
-                                <rect key="frame" x="291" y="232" width="61" height="18"/>
+                                <rect key="frame" x="326" y="232" width="61" height="18"/>
                                 <buttonCell key="cell" type="check" title="Album" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aCC-Zh-Lwy">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1198,7 +1218,7 @@
         <scene sceneID="6sO-rX-e0h">
             <objects>
                 <viewController title="About" id="hC1-so-W0N" sceneMemberID="viewController">
-                    <view key="view" focusRingType="none" id="4CW-b3-HmJ" customClass="AboutPreferencesView" customModule="BarControls" customModuleProvider="target">
+                    <view key="view" focusRingType="none" id="4CW-b3-HmJ">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
