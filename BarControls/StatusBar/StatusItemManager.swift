@@ -24,13 +24,36 @@ class StatusItemManager: NSObject {
     }
     
     fileprivate func initStatusItem() {
-        statusItem.button?.title = "Some Song"
+        statusItem.button?.title = "🎶"
         
         statusItem.button?.target = self
-        statusItem.button?.action = #selector(showPlayerVC)
+        statusItem.button?.action = #selector(handleClick)
+        statusItem.button?.sendAction(on: [.leftMouseUp, .rightMouseUp])
     }
     
-    @objc func showPlayerVC() {
+    @objc func handleClick(sender: NSStatusItem) {
+        let event = NSApp.currentEvent!
+
+        if event.type == NSEvent.EventType.leftMouseUp {
+           playerShowPopover()
+        } else {
+           playerSkipTrack()
+        }
+    }
+    
+    func playerPlayPause() {
+        MusicController.shared.playPause()
+    }
+    
+    func playerSkipTrack() {
+        MusicController.shared.nextTrack()
+    }
+    
+    func playerPrevTrack() {
+        MusicController.shared.prevTrack()
+    }
+    
+    func playerShowPopover() {
         guard let popover = popover, let button = statusItem.button else { return }
         
         if !popover.isShown {
@@ -48,10 +71,11 @@ class StatusItemManager: NSObject {
             popover.show(relativeTo: button.window!.contentView!.bounds, of: button.window!.contentView!, preferredEdge: .minY)
             popover.contentViewController?.view.window?.makeKeyAndOrderFront(nil) // Needed so that the window disappears when clicked somewhere else
             
+            // TO-DO: Rething this
             // Needed so that the window stays where it is when the menu bar is auto-hidden
-            if let window = popover.contentViewController?.view.window {
-                window.parent?.removeChildWindow(window)
-            }
+//            if let window = popover.contentViewController?.view.window {
+//                window.parent?.removeChildWindow(window)
+//            }
         
             NSApp.activate(ignoringOtherApps: true)
         } else {
