@@ -42,13 +42,6 @@ class PlayerViewController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         
-        let textShadow: NSShadow = NSShadow()
-        textShadow.shadowBlurRadius = 10
-        textShadow.shadowOffset = NSMakeSize(4, 4)
-        textShadow.shadowColor = NSColor.black
-        
-        l_title.shadow = textShadow
-        
         if let track = MusicController.shared.currentTrack {
             updateView(with: track)
         }

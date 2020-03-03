@@ -18,6 +18,7 @@
 		076F3325240BDF8F002BAEDF /* NSNotification+BarControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076F3324240BDF8F002BAEDF /* NSNotification+BarControls.swift */; };
 		076F3327240BE5BA002BAEDF /* MusicControllerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076F3326240BE5BA002BAEDF /* MusicControllerObserver.swift */; };
 		076F3329240BEDB6002BAEDF /* Int+BarControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076F3328240BEDB6002BAEDF /* Int+BarControls.swift */; };
+		07BC0FB9240EC203001D9B74 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07BC0FB8240EC203001D9B74 /* Colors.xcassets */; };
 		07C30A0C240C64D300D1FC4F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C30A0B240C64D300D1FC4F /* SettingsViewController.swift */; };
 		07C30A0E240C695100D1FC4F /* GeneralPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C30A0D240C695100D1FC4F /* GeneralPreferencesView.swift */; };
 		07C30A10240C695B00D1FC4F /* DisplayPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C30A0F240C695B00D1FC4F /* DisplayPreferencesView.swift */; };
@@ -42,6 +43,7 @@
 		076F3324240BDF8F002BAEDF /* NSNotification+BarControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+BarControls.swift"; sourceTree = "<group>"; };
 		076F3326240BE5BA002BAEDF /* MusicControllerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicControllerObserver.swift; sourceTree = "<group>"; };
 		076F3328240BEDB6002BAEDF /* Int+BarControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+BarControls.swift"; sourceTree = "<group>"; };
+		07BC0FB8240EC203001D9B74 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		07C30A0B240C64D300D1FC4F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		07C30A0D240C695100D1FC4F /* GeneralPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferencesView.swift; sourceTree = "<group>"; };
 		07C30A0F240C695B00D1FC4F /* DisplayPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayPreferencesView.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				07F2D58324004DA900762407 /* AppDelegate.swift */,
 				07F2D58524004DA900762407 /* ViewController.swift */,
 				07F2D58724004DA900762407 /* Assets.xcassets */,
+				07BC0FB8240EC203001D9B74 /* Colors.xcassets */,
 				07F2D58924004DA900762407 /* Main.storyboard */,
 				07F2D58C24004DA900762407 /* Info.plist */,
 				07F2D58D24004DA900762407 /* BarControls.entitlements */,
@@ -228,6 +231,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07BC0FB9240EC203001D9B74 /* Colors.xcassets in Resources */,
 				07F2D58824004DA900762407 /* Assets.xcassets in Resources */,
 				07F2D58B24004DA900762407 /* Main.storyboard in Resources */,
 			);
@@ -404,7 +408,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.2;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.slawagurevich.BarControls;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -426,7 +430,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.2;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.slawagurevich.BarControls;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

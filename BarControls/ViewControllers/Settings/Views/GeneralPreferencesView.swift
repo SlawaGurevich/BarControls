@@ -12,7 +12,9 @@ class GeneralPreferencesView: NSViewController {
     @IBOutlet weak var b_quit: NSButton!
     @IBOutlet weak var b_leftClickDropDown: NSPopUpButton!
     @IBOutlet weak var b_rightClickDropDown: NSPopUpButton!
-    
+    @IBOutlet weak var b_startAtLoginCheckbox: NSButton!
+
+    // MARK: - Class functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,7 +47,11 @@ class GeneralPreferencesView: NSViewController {
             case .none:
                 b_rightClickDropDown.selectItem(withTitle: "None")
         }
+        
+        b_startAtLoginCheckbox.state = (UserPreferences.startAtLogin ? .on : .off)
     }
+    
+    // MARK: - Actions
     
     @IBAction func leftClickSelected(_ sender: Any) {
         switch(b_leftClickDropDown.selectedItem?.title) {
@@ -88,6 +94,17 @@ class GeneralPreferencesView: NSViewController {
         if( b_rightClickDropDown.selectedItem?.title != "Show Popup" && b_leftClickDropDown.selectedItem?.title != "Show Popup" ) {
             b_leftClickDropDown.selectItem(withTitle: "Show Popup")
             UserPreferences.leftClick = .showPopup
+        }
+    }
+    
+    @IBAction func checkedStartAtLogin(_ sender: Any) {
+        if b_startAtLoginCheckbox.state == .on {
+            UserPreferences.startAtLogin = true
+//            LoginServiceKit.addLoginItems()
+        }
+        else {
+            UserPreferences.startAtLogin = false
+//            LoginServiceKit.removeLoginItems()
         }
     }
     

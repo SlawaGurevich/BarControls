@@ -13,6 +13,7 @@ class UserPreferences {
     private enum Keys: String {
         case leftClick
         case rightClick
+        case startAtLogin
     }
     
     enum LeftClickAction: String {
@@ -43,6 +44,15 @@ class UserPreferences {
         }
         set {
             self.write(value: newValue.rawValue, toKey: self.Keys.rightClick.rawValue)
+        }
+    }
+    
+    class var startAtLogin: Bool {
+        get {
+            return self.readBool(fromKey: self.Keys.startAtLogin.rawValue) ?? true
+        }
+        set {
+            self.write(value: newValue, toKey: self.Keys.startAtLogin.rawValue)
         }
     }
     
