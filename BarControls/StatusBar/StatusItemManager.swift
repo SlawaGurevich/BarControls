@@ -129,9 +129,18 @@ class StatusItemManager: NSObject {
             if let track = MusicController.shared.currentTrack {
                 let title: String = track.title
                 let artist: String = track.artist
+                let album: String = track.album
+                
+                var displayString = ""
+                displayString.append(UserPreferences.showArtist ? "\(artist) " : "")
+                displayString.append(
+                    ((UserPreferences.showTitle && UserPreferences.showArtist) || (UserPreferences.showTitle && UserPreferences.showAlbum)) ? "-" : "")
+                displayString.append(UserPreferences.showTitle ? " \(title) " : "")
+                displayString.append((UserPreferences.showArtist && UserPreferences.showAlbum) ? "-" : "")
+                displayString.append(UserPreferences.showAlbum ? " \(album)" : "")
 
                 // TO-DO: Keep window from moving
-                button.title = "\(artist) - \(title)"
+                button.title = displayString
             }
         }
     }

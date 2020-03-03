@@ -14,6 +14,10 @@ class UserPreferences {
         case leftClick
         case rightClick
         case startAtLogin
+        
+        case showTitle
+        case showArtist
+        case showAlbum
     }
     
     enum LeftClickAction: String {
@@ -56,6 +60,32 @@ class UserPreferences {
         }
     }
     
+    class var showTitle: Bool {
+        get {
+            return self.readBool(fromKey: self.Keys.showTitle.rawValue) ?? true
+        }
+        set {
+            self.write(value: newValue, toKey: self.Keys.showTitle.rawValue)
+        }
+    }
+    
+    class var showArtist: Bool {
+        get {
+            return self.readBool(fromKey: self.Keys.showArtist.rawValue) ?? true
+        }
+        set {
+            self.write(value: newValue, toKey: self.Keys.showArtist.rawValue)
+        }
+    }
+    
+    class var showAlbum: Bool {
+        get {
+            return self.readBool(fromKey: self.Keys.showAlbum.rawValue) ?? true
+        }
+        set {
+            self.write(value: newValue, toKey: self.Keys.showAlbum.rawValue)
+        }
+    }
     // MARK: - Functions
     private static func write(value: Any?, toKey key: String) {
         UserDefaults.standard.set(value, forKey: key)
@@ -71,7 +101,7 @@ class UserPreferences {
     
     private static func readBool(fromKey key: String) -> Bool? {
         if !self.has(key: key) {
-            return nil
+            return false
         }
         
         return UserDefaults.standard.bool(forKey: key)
