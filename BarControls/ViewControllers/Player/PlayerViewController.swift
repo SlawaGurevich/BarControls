@@ -48,7 +48,7 @@ class PlayerViewController: NSViewController {
         
         if let track = MusicController.shared.currentTrack {
             updateView(with: track)
-            v_controlsView.alphaValue = 1
+            v_controlsView.alphaValue = 0.99
         }
     }
     
@@ -65,14 +65,23 @@ class PlayerViewController: NSViewController {
     }
     
     override func mouseEntered(with event: NSEvent) {
-        if(UserPreferences.hideControls) {
-            v_controlsView.alphaValue = 1
+        NSAnimationContext.runAnimationGroup({(context) -> Void in
+            context.duration = 0.5
+            // TODO: Check why the shadow disappears, when it;s set to 1
+            v_controlsView.animator().alphaValue = 0.99
+        }) {
+            print("Animation done")
         }
     }
 
     override func mouseExited(with event: NSEvent) {
         if(UserPreferences.hideControls) {
-            v_controlsView.alphaValue = 0
+            NSAnimationContext.runAnimationGroup({(context) -> Void in
+                context.duration = 0.5
+                v_controlsView.animator().alphaValue = 0
+            }) {
+                print("Animation done")
+            }
         }
     }
     
