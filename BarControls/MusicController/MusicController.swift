@@ -52,6 +52,10 @@ class MusicController {
         runScript(script: NSAppleScript.appleScripts.PrevTrack.rawValue)
     }
     
+    func setPlayerPosition(position: Int) {
+        NSAppleScript.run(code: NSAppleScript.appleScripts.SetPlayerPosition(position), completionHandler: {_,_,_ in })
+    }
+    
     func updateData() {
         // Update current track
         NSAppleScript.run(code: NSAppleScript.appleScripts.GetTrackData.rawValue) { (success, output, errors) in

@@ -49,7 +49,7 @@ extension NSAppleScript {
         end tell
         """
         
-        static func SetCurrentPlayerPosition(_ position: Int) -> String {
+        static func SetPlayerPosition(_ position: Int) -> String {
             return """
             tell application "Music"
                 if it is running then
