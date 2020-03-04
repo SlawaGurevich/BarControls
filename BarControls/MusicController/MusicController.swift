@@ -14,7 +14,6 @@ class MusicController {
     
     var currentTrack: Track? {
         didSet {
-
             NotificationCenter.post(name: .TrackDataDidChange)
         }
     }
@@ -65,13 +64,13 @@ class MusicController {
                 self.currentTrack = newTrack
             }
         }
-        
+
         NSAppleScript.run(code: NSAppleScript.appleScripts.GetCurrentPlayerState.rawValue) { (success, output, errors) in
             if success {
                 self.isPlaying = (output!.data.stringValue == "playing")
             }
         }
-        
+
         NSAppleScript.run(code: NSAppleScript.appleScripts.GetCurrentPlayerPosition.rawValue) { (success, output, errors) in
             if success {
                 var newPosition = Double(output!.cleanDescription) ?? 0

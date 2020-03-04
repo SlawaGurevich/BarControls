@@ -20,7 +20,10 @@ class PlayerViewController: NSViewController {
     @IBOutlet weak var l_title: NSTextField!
     @IBOutlet weak var l_artist: NSTextField!
     @IBOutlet weak var l_coverArt: NSImageCell!
-
+    
+    @IBOutlet weak var v_controlsView: NSView!
+    @IBOutlet weak var v_visualEffectsImageView: NSVisualEffectView!
+    
     
     var changeObservers: [NSObjectProtocol] = []
     
@@ -45,14 +48,32 @@ class PlayerViewController: NSViewController {
         
         if let track = MusicController.shared.currentTrack {
             updateView(with: track)
+            v_controlsView.alphaValue = 1
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        
+        addMouseTrackingArea()
         addNotificationObservers()
+    }
+    
+    fileprivate func addMouseTrackingArea() {
+        let trackingArea = NSTrackingArea(rect: self.view.accessibilityFrame(), options: [.mouseEnteredAndExited, .activeAlways], owner: self, userInfo: nil)
+        self.view.addTrackingArea(trackingArea)
+    }
+    
+    override func mouseEntered(with event: NSEvent) {
+        if(UserPreferences.hideControls) {
+            v_controlsView.alphaValue = 1
+        }
+    }
+
+    override func mouseExited(with event: NSEvent) {
+        if(UserPreferences.hideControls) {
+            v_controlsView.alphaValue = 0
+        }
     }
     
     // MARK: - Functions

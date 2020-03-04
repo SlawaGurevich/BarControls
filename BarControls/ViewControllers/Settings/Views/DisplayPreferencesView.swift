@@ -12,6 +12,7 @@ class DisplayPreferenesView: NSViewController {
     @IBOutlet weak var b_showTitle: NSButton!
     @IBOutlet weak var b_showArtist: NSButton!
     @IBOutlet weak var b_showAlbum: NSButton!
+    @IBOutlet weak var b_hideControls: NSButton!
     
     @IBOutlet weak var l_previewLabel: NSTextField!
     
@@ -21,6 +22,7 @@ class DisplayPreferenesView: NSViewController {
         b_showTitle.state = (UserPreferences.showTitle ? .on : .off)
         b_showArtist.state = (UserPreferences.showArtist ? .on : .off)
         b_showAlbum.state = (UserPreferences.showAlbum ? .on : .off)
+        b_hideControls.state = (UserPreferences.hideControls ? .on : .off)
         
         updateLabel()
     }
@@ -38,6 +40,10 @@ class DisplayPreferenesView: NSViewController {
     @IBAction func checkedAlbum(_ sender: Any) {
         UserPreferences.showAlbum = b_showAlbum.state == .on ? true : false
         updateLabel()
+    }
+    
+    @IBAction func checkedHideControls(_ sender: Any) {
+        UserPreferences.hideControls = b_hideControls.state == .on ? true : false
     }
     
     func updateLabel() {

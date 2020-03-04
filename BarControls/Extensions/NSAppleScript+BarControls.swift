@@ -12,6 +12,7 @@ extension NSAppleScript {
     static func run(code: String, completionHandler: (Bool, NSAppleEventDescriptor?, NSDictionary?) -> Void) {
         var error: NSDictionary?
         let script = NSAppleScript(source: code)
+        print(code)
         let output = script?.executeAndReturnError(&error)
         
         if let ou = output {

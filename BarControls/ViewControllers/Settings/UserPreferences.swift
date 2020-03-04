@@ -18,6 +18,8 @@ class UserPreferences {
         case showTitle
         case showArtist
         case showAlbum
+        
+        case hideControls
     }
     
     enum LeftClickAction: String {
@@ -84,6 +86,15 @@ class UserPreferences {
         }
         set {
             self.write(value: newValue, toKey: self.Keys.showAlbum.rawValue)
+        }
+    }
+    
+    class var hideControls: Bool {
+        get {
+            return self.readBool(fromKey: self.Keys.hideControls.rawValue) ?? true
+        }
+        set {
+            self.write(value: newValue, toKey: self.Keys.hideControls.rawValue)
         }
     }
     // MARK: - Functions

@@ -70,6 +70,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07163C0724105419000E0B94 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				07F2D58724004DA900762407 /* Assets.xcassets */,
+				07BC0FB8240EC203001D9B74 /* Colors.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		07410DA024008B1F00CBF48E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,10 +171,9 @@
 				07410DA324008BD000CBF48E /* MusicController */,
 				07410DA624008CD000CBF48E /* ViewControllers */,
 				07410DA024008B1F00CBF48E /* Extensions */,
+				07163C0724105419000E0B94 /* Assets */,
 				07F2D58324004DA900762407 /* AppDelegate.swift */,
 				07F2D58524004DA900762407 /* ViewController.swift */,
-				07F2D58724004DA900762407 /* Assets.xcassets */,
-				07BC0FB8240EC203001D9B74 /* Colors.xcassets */,
 				07F2D58924004DA900762407 /* Main.storyboard */,
 				07F2D58C24004DA900762407 /* Info.plist */,
 				07F2D58D24004DA900762407 /* BarControls.entitlements */,

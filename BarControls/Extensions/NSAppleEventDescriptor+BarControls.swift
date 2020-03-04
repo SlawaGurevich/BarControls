@@ -27,9 +27,7 @@ extension NSAppleEventDescriptor {
 
 extension NSAppleEventDescriptor {
     var cleanDescription: String {
-        let preparedString = self.description
-            .replacingOccurrences(of: "<NSAppleEventDescriptor: ", with: "")
-            .replacingOccurrences(of: ">", with: "")
+        let preparedString = self.description.replacingOccurrences(of: "<NSAppleEventDescriptor: ", with: "").replacingOccurrences(of: ">", with: "")
         
         return preparedString
     }

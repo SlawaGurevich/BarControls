@@ -8,7 +8,7 @@
 import Cocoa
 import MediaPlayer
 
-class Track: CustomStringConvertible {
+class Track {
     // MARK: - Properties
     let title: String
     let artist: String
@@ -39,18 +39,18 @@ class Track: CustomStringConvertible {
                 break
             }
         }
-        
+
         if filepath != "" {
             let asset = AVURLAsset(url: NSURL(string: filepath)! as URL)
-            
+
             var t_title: String = "Unknown"
             var t_artist: String = "Unknown"
             var t_album: String = "Unknown"
             var t_duration: Int = 0
             var t_coverArt: NSImage = NSImage()
-            
+
             t_duration = Int(asset.duration.seconds)
-            
+
             for metadata in asset.metadata {
                 switch metadata.commonKey?.rawValue {
                     case "title":
@@ -68,7 +68,7 @@ class Track: CustomStringConvertible {
                         continue
                 }
             }
-            
+
             self.init(title: t_title, artist: t_artist, album: t_album, duration: t_duration, coverArt: t_coverArt)
             return
         }
