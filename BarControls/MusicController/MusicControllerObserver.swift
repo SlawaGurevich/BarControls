@@ -11,7 +11,13 @@ import Foundation
 class MusicControllerObserver {
     static let shared = MusicControllerObserver()
     
-    private init() {}
+    var catalina: Bool {
+        if #available(macOS 10.15, *) {
+            return true
+        } else {
+            return false
+        }
+    }
     
     var timer: Timer?
     

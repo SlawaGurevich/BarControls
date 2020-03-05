@@ -12,7 +12,6 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItemManager: StatusItemManager!
 
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         MusicControllerObserver.shared.start()
         StatusItemManager.shared.initManager()

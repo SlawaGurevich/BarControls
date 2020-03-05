@@ -11,7 +11,7 @@ import Foundation
 extension NSAppleScript {
     static func run(code: String, completionHandler: (Bool, NSAppleEventDescriptor?, NSDictionary?) -> Void) {
         var error: NSDictionary?
-        let script = NSAppleScript(source: code)
+        let script = NSAppleScript(source: MusicControllerObserver.shared.catalina ? code : code.replacingOccurrences(of: "Music", with: "iTunes"))
 
         let output = script?.executeAndReturnError(&error)
         
