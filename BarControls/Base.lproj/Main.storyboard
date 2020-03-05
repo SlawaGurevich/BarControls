@@ -179,7 +179,7 @@
                                     <constraint firstAttribute="width" constant="230" id="8Iy-Pw-QKb"/>
                                 </constraints>
                                 <textFieldCell key="cell" title="Show Popup must be selected by at least one option" id="WAE-lg-Fro">
-                                    <font key="font" metaFont="controlContent" size="11"/>
+                                    <font key="font" metaFont="menu" size="11"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -418,7 +418,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="216" height="216"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Av-Ti-TWv" userLabel="UnblurredImageView">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" alphaValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="6Av-Ti-TWv" userLabel="UnblurredImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="216" height="216"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="dummy-cover" id="b6B-Xf-EQ9"/>
                             </imageView>
@@ -591,7 +591,7 @@
                                                 </shadow>
                                                 <buttonCell key="cell" type="bevel" title="1:11" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="LGW-RK-SJc">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="controlContent" size="11"/>
+                                                    <font key="font" metaFont="menu" size="11"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
@@ -608,7 +608,7 @@
                                                 </shadow>
                                                 <buttonCell key="cell" type="bevel" title="1:11" bezelStyle="rounded" alignment="right" imageScaling="proportionallyDown" inset="2" id="lxT-xE-Sds">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="controlContent" size="11"/>
+                                                    <font key="font" metaFont="menu" size="11"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>

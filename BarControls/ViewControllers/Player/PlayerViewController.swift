@@ -62,9 +62,12 @@ class PlayerViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
         addMouseTrackingArea()
         addNotificationObservers()
+    }
+    
+    override func viewDidDisappear() {
+        removeMusicAppChangeObservers()
     }
     
     fileprivate func addMouseTrackingArea() {
@@ -135,8 +138,10 @@ class PlayerViewController: NSViewController {
         )
     }
     
-    func removeNotificationObservers() {
-        
+    fileprivate func removeMusicAppChangeObservers() {
+        for observer in changeObservers {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
     
     @IBAction func backFiveSeconds(_ sender: Any) {
