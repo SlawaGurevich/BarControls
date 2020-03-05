@@ -9,13 +9,17 @@
 import Cocoa
 
 class StatusItemManager: NSObject {
+    // MARK: - Static declaration
     static let shared = StatusItemManager()
-    
+   
+    // MARK: - Properties
     var statusItem: NSStatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     var popover: NSPopover?
+    var detachedWindow: NSWindow = NSWindow()
     var playerVC: PlayerViewController?
     var trackDataDidChangeObserver: NSObjectProtocol?
     
+    // MARK: - Overridden functions
     override init() {
         super.init()
         
@@ -23,6 +27,7 @@ class StatusItemManager: NSObject {
         initPopover()
     }
     
+    // MARK: - Init functions
     fileprivate func initStatusItem() {
         statusItem.button?.title = "🎶"
         
@@ -31,6 +36,35 @@ class StatusItemManager: NSObject {
         statusItem.button?.sendAction(on: [.leftMouseUp, .rightMouseUp])
     }
     
+    fileprivate func initPopover() {
+        popover = NSPopover()
+        
+        popover?.behavior = .transient
+    }
+    
+    func initManager() {
+        createDetachedWindow()
+        updateButton()
+        
+        trackDataDidChangeObserver = NotificationCenter.observe(name: .TrackDataDidChange) {
+            self.updateButton()
+        }
+    }
+    
+    func deinitManager() {
+        if let observer = trackDataDidChangeObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+    }
+    
+    func createDetachedWindow() {
+        let height:CGFloat = 1
+        
+        detachedWindow = NSWindow(contentRect: NSMakeRect(0, 0, 15, height), styleMask: .borderless, backing: .buffered, defer: false)
+        detachedWindow.backgroundColor = .red
+        detachedWindow.alphaValue = 0
+    }
+    // MARK: - Click handle functions
     @objc func handleClick(sender: NSStatusItem) {
         let event = NSApp.currentEvent!
 
@@ -92,10 +126,22 @@ class StatusItemManager: NSObject {
             }
             
             popover.contentViewController = playerVC
-        
+            
+            let buttonRect = button.convert(statusItem.button!.bounds, to: nil)
+            let screenRect = button.window!.convertToScreen(buttonRect)
+            
+            let posX = screenRect.origin.x + (screenRect.width / 2) - 10
+            let posY = screenRect.origin.y
+            
+            detachedWindow.setFrameOrigin(NSPoint(x: posX, y: posY))
+            detachedWindow.makeKeyAndOrderFront(self)
+            
             updateButton()
-            popover.show(relativeTo: button.window!.contentView!.bounds, of: button.window!.contentView!, preferredEdge: .minY)
-            popover.contentViewController?.view.window?.makeKeyAndOrderFront(nil) // Needed so that the window disappears when clicked somewhere else
+            
+            popover.show(relativeTo: detachedWindow.contentView!.frame, of: detachedWindow.contentView!, preferredEdge: .minY)
+
+
+//            popover.contentViewController?.view.window?.makeKeyAndOrderFront(nil) // Needed so that the window disappears when clicked somewhere else
             
             // TO-DO: Rething this
             // Needed so that the window stays where it is when the menu bar is auto-hidden
@@ -109,21 +155,7 @@ class StatusItemManager: NSObject {
         }
     }
     
-    func initManager() {
-        print("initManager")
-        updateButton()
-        
-        trackDataDidChangeObserver = NotificationCenter.observe(name: .TrackDataDidChange) {
-            self.updateButton()
-        }
-    }
-    
-    func deinitManager() {
-        if let observer = trackDataDidChangeObserver {
-            NotificationCenter.default.removeObserver(observer)
-        }
-    }
-    
+    // MARK: - View update functions
     func updateButton() {
         if let button = statusItem.button {
             if let track = MusicController.shared.currentTrack {
@@ -143,11 +175,5 @@ class StatusItemManager: NSObject {
                 button.title = displayString
             }
         }
-    }
-
-    fileprivate func initPopover() {
-        popover = NSPopover()
-        
-        popover?.behavior = .transient
     }
 }
