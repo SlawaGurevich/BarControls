@@ -63,10 +63,16 @@ class PlayerViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addMouseTrackingArea()
+        print("view did load")
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
         addNotificationObservers()
     }
     
     override func viewDidDisappear() {
+        super.viewDidDisappear()
         removeMusicAppChangeObservers()
     }
     
