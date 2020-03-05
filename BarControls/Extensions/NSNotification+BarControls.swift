@@ -21,4 +21,8 @@ extension NSNotification.Name {
     static var PlayerStateDidChange: NSNotification.Name {
         return NSNotification.Name(#function)
     }
+    
+    static var ShuffleModeChanged: NSNotification.Name {
+        return NSNotification.Name(#function)
+    }
 }

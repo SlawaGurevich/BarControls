@@ -34,6 +34,14 @@ class MusicController {
         }
     }
     
+    var shuffling: Bool = false {
+        didSet {
+            if oldValue != shuffling {
+                NotificationCenter.post(name: .ShuffleModeChanged)
+            }
+        }
+    }
+    
     // MARK: - Functions
     func runScript(script: String) {
         NSAppleScript.run(code: script, completionHandler: {_,_,_ in})
@@ -51,6 +59,10 @@ class MusicController {
         runScript(script: NSAppleScript.appleScripts.PrevTrack.rawValue)
     }
     
+    func setShuffleMode(shuffle: Bool) {
+        NSAppleScript.run(code: NSAppleScript.appleScripts.SetShuffleMode(shuffle), completionHandler: {_,_,_ in })
+    }
+    
     func setPlayerPosition(position: Int) {
         NSAppleScript.run(code: NSAppleScript.appleScripts.SetPlayerPosition(position), completionHandler: {_,_,_ in })
     }
@@ -63,6 +75,13 @@ class MusicController {
                 let newTrack = Track(fromList: output!.listItems())
                 self.currentTrack = newTrack
             }
+        }
+        
+        NSAppleScript.run(code: NSAppleScript.appleScripts.GetShuffleMode.rawValue) { (success, output, errors) in
+            if success {
+                self.shuffling = (output!.data.stringValue == "true")
+            }
+            
         }
 
         NSAppleScript.run(code: NSAppleScript.appleScripts.GetCurrentPlayerState.rawValue) { (success, output, errors) in

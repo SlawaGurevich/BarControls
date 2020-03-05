@@ -12,10 +12,10 @@ class PlayerViewController: NSViewController {
     @IBOutlet weak var b_playPause: NSButton!
     @IBOutlet weak var b_prevTrack: NSButton!
     @IBOutlet weak var b_nextTrack: NSButton!
-    @IBOutlet weak var b_shuffleButton: NSButton!
     @IBOutlet weak var b_progressSlider: NSSlider!
     @IBOutlet weak var b_currentPosition: NSButton!
     @IBOutlet weak var b_totalDuration: NSButton!
+    @IBOutlet weak var b_toggleShuffle: NSButton!
     
     @IBOutlet weak var l_title: NSTextField!
     @IBOutlet weak var l_artist: NSTextField!
@@ -40,7 +40,8 @@ class PlayerViewController: NSViewController {
     }
     
     @IBAction func toggleShuffle(_ sender: Any) {
-        
+        print(MusicController.shared.shuffling)
+        MusicController.shared.setShuffleMode(shuffle: !MusicController.shared.shuffling)
     }
     
     override func viewWillAppear() {
@@ -48,6 +49,7 @@ class PlayerViewController: NSViewController {
         
         if let track = MusicController.shared.currentTrack {
             updateView(with: track)
+            
             v_controlsView.alphaValue = 0.99
         }
     }
@@ -107,6 +109,12 @@ class PlayerViewController: NSViewController {
                 self.updatePlayerStatus(playing: MusicController.shared.isPlaying)
             }
         )
+        
+        changeObservers.append(
+            NotificationCenter.observe(name: .ShuffleModeChanged) {
+                self.updateShuffleState(shuffling: MusicController.shared.shuffling)
+            }
+        )
     }
     
     func removeNotificationObservers() {
@@ -134,13 +142,22 @@ class PlayerViewController: NSViewController {
         }
     }
     
+    func updateShuffleState(shuffling: Bool) {
+        NSAnimationContext.runAnimationGroup({(context) -> Void in
+            context.duration = 0.5
+            self.b_toggleShuffle.animator().alphaValue = MusicController.shared.shuffling ? 1 : 0.4
+        })
+    }
+    
     func updateView(with track: Track) {
         self.l_title.stringValue = track.title
         self.l_artist.stringValue = track.artist
         self.b_totalDuration.title = "\(track.duration / 60):\( track.duration % 60 < 10 ? "0" : "" )\(track.duration % 60)"
         self.l_coverArt.image = track.coverArt
         self.b_progressSlider.maxValue = Double(track.duration)
+        
         self.updatePlayerStatus(playing: MusicController.shared.isPlaying)
+        self.updateShuffleState(shuffling: MusicController.shared.shuffling)
     }
     
     // Updates the slider position to the given seconds

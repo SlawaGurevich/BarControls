@@ -12,7 +12,7 @@ extension NSAppleScript {
     static func run(code: String, completionHandler: (Bool, NSAppleEventDescriptor?, NSDictionary?) -> Void) {
         var error: NSDictionary?
         let script = NSAppleScript(source: code)
-        print(code)
+
         let output = script?.executeAndReturnError(&error)
         
         if let ou = output {
@@ -55,6 +55,24 @@ extension NSAppleScript {
             tell application "Music"
                 if it is running then
                     set player position to \(position)
+                end if
+            end tell
+            """
+        }
+        
+        case GetShuffleMode = """
+            tell application "Music"
+                if it is running then
+                    set shufflestate to (get shuffle enabled) as text
+                end if
+            end tell
+        """
+        
+        static func SetShuffleMode(_ shuffle: Bool) -> String {
+            return """
+            tell application "Music"
+                if it is running then
+                    set shuffle enabled to \(shuffle ? "true" : "false")
                 end if
             end tell
             """
