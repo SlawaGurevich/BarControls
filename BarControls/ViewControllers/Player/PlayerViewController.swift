@@ -9,6 +9,7 @@
 import Cocoa
 
 class PlayerViewController: NSViewController {
+    // MARK: - Outlets
     @IBOutlet weak var b_playPause: NSButton!
     @IBOutlet weak var b_prevTrack: NSButton!
     @IBOutlet weak var b_nextTrack: NSButton!
@@ -23,11 +24,11 @@ class PlayerViewController: NSViewController {
     @IBOutlet weak var l_coverArt: NSImageView!
     @IBOutlet weak var l_unblurredCoverArt: NSImageView!
     
-    
     @IBOutlet weak var v_controlsView: NSView!
     @IBOutlet weak var v_visualEffectsImageView: NSVisualEffectView!
     
-    
+
+    // MARK: - Actions
     var changeObservers: [NSObjectProtocol] = []
     
     @IBAction func playPauseClicked(_ sender: Any) {
@@ -50,6 +51,7 @@ class PlayerViewController: NSViewController {
         MusicController.shared.toggleRepeat()
     }
     
+    // MARK: - Overridden functions
     override func viewWillAppear() {
         super.viewWillAppear()
         
@@ -57,6 +59,8 @@ class PlayerViewController: NSViewController {
             updateView(with: track)
             
             v_controlsView.alphaValue = 0.99
+            v_visualEffectsImageView.alphaValue = 1
+            l_unblurredCoverArt.alphaValue = 0
         }
     }
     
@@ -85,9 +89,9 @@ class PlayerViewController: NSViewController {
         NSAnimationContext.runAnimationGroup({(context) -> Void in
             context.duration = 0.5
             // TODO: Check why the shadow disappears, when it;s set to 1
+            v_controlsView.animator().alphaValue = 0.99
             v_visualEffectsImageView.animator().alphaValue = 1
             l_unblurredCoverArt.animator().alphaValue = 0
-            v_controlsView.animator().alphaValue = 0.99
             
         }) {
             print("Animation done")
