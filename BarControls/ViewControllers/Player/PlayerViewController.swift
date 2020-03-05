@@ -20,7 +20,9 @@ class PlayerViewController: NSViewController {
     
     @IBOutlet weak var l_title: NSTextField!
     @IBOutlet weak var l_artist: NSTextField!
-    @IBOutlet weak var l_coverArt: NSImageCell!
+    @IBOutlet weak var l_coverArt: NSImageView!
+    @IBOutlet weak var l_unblurredCoverArt: NSImageView!
+    
     
     @IBOutlet weak var v_controlsView: NSView!
     @IBOutlet weak var v_visualEffectsImageView: NSVisualEffectView!
@@ -74,7 +76,10 @@ class PlayerViewController: NSViewController {
         NSAnimationContext.runAnimationGroup({(context) -> Void in
             context.duration = 0.5
             // TODO: Check why the shadow disappears, when it;s set to 1
+            v_visualEffectsImageView.animator().alphaValue = 1
+            l_unblurredCoverArt.animator().alphaValue = 0
             v_controlsView.animator().alphaValue = 0.99
+            
         }) {
             print("Animation done")
         }
@@ -84,7 +89,10 @@ class PlayerViewController: NSViewController {
         if(UserPreferences.hideControls) {
             NSAnimationContext.runAnimationGroup({(context) -> Void in
                 context.duration = 0.5
+                v_visualEffectsImageView.animator().alphaValue = 0
+                l_unblurredCoverArt.animator().alphaValue = 1
                 v_controlsView.animator().alphaValue = 0
+                
             }) {
                 print("Animation done")
             }
@@ -193,6 +201,7 @@ class PlayerViewController: NSViewController {
         self.l_artist.stringValue = track.artist
         self.b_totalDuration.title = "\(track.duration / 60):\( track.duration % 60 < 10 ? "0" : "" )\(track.duration % 60)"
         self.l_coverArt.image = track.coverArt
+        self.l_unblurredCoverArt.image = track.coverArt
         self.b_progressSlider.maxValue = Double(track.duration)
         
         self.updatePlayerStatus(playing: MusicController.shared.isPlaying)

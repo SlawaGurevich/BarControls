@@ -179,7 +179,7 @@
                                     <constraint firstAttribute="width" constant="230" id="8Iy-Pw-QKb"/>
                                 </constraints>
                                 <textFieldCell key="cell" title="Show Popup must be selected by at least one option" id="WAE-lg-Fro">
-                                    <font key="font" metaFont="label" size="11"/>
+                                    <font key="font" metaFont="controlContent" size="11"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -418,6 +418,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="216" height="216"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Av-Ti-TWv" userLabel="UnblurredImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="216" height="216"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="dummy-cover" id="b6B-Xf-EQ9"/>
+                            </imageView>
                             <visualEffectView wantsLayer="YES" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="uVW-de-BHb" userLabel="Visual Effects ImageV Iew">
                                 <rect key="frame" x="0.0" y="0.0" width="216" height="216"/>
                                 <subviews>
@@ -587,7 +591,7 @@
                                                 </shadow>
                                                 <buttonCell key="cell" type="bevel" title="1:11" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="LGW-RK-SJc">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="label" size="11"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
@@ -604,7 +608,7 @@
                                                 </shadow>
                                                 <buttonCell key="cell" type="bevel" title="1:11" bezelStyle="rounded" alignment="right" imageScaling="proportionallyDown" inset="2" id="lxT-xE-Sds">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="label" size="11"/>
+                                                    <font key="font" metaFont="controlContent" size="11"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
@@ -652,8 +656,12 @@
                         <constraints>
                             <constraint firstItem="uVW-de-BHb" firstAttribute="leading" secondItem="rEQ-vb-AW9" secondAttribute="leading" id="1V9-0T-VBp"/>
                             <constraint firstAttribute="trailing" secondItem="uVW-de-BHb" secondAttribute="trailing" id="7hf-d0-tAE"/>
+                            <constraint firstItem="6Av-Ti-TWv" firstAttribute="leading" secondItem="rEQ-vb-AW9" secondAttribute="leading" id="AIO-2o-mmE"/>
+                            <constraint firstItem="6Av-Ti-TWv" firstAttribute="top" secondItem="rEQ-vb-AW9" secondAttribute="top" id="JG6-sV-JGr"/>
                             <constraint firstItem="jfl-Is-q9D" firstAttribute="leading" secondItem="rEQ-vb-AW9" secondAttribute="leading" id="PYE-KK-Qpk"/>
+                            <constraint firstAttribute="bottom" secondItem="6Av-Ti-TWv" secondAttribute="bottom" id="WoG-vB-bbV"/>
                             <constraint firstAttribute="bottom" secondItem="jfl-Is-q9D" secondAttribute="bottom" id="bAO-fp-Q0P"/>
+                            <constraint firstAttribute="trailing" secondItem="6Av-Ti-TWv" secondAttribute="trailing" id="eL6-Lg-ILa"/>
                             <constraint firstAttribute="trailing" secondItem="jfl-Is-q9D" secondAttribute="trailing" id="fSw-Gq-D3i"/>
                             <constraint firstItem="jfl-Is-q9D" firstAttribute="top" secondItem="rEQ-vb-AW9" secondAttribute="top" id="ozf-ZV-lvm"/>
                             <constraint firstItem="uVW-de-BHb" firstAttribute="top" secondItem="rEQ-vb-AW9" secondAttribute="top" id="svv-35-567"/>
@@ -670,8 +678,9 @@
                         <outlet property="b_toggleShuffle" destination="5p1-ck-U1C" id="XMb-Ue-DcQ"/>
                         <outlet property="b_totalDuration" destination="zKw-mm-coP" id="69j-RG-t8q"/>
                         <outlet property="l_artist" destination="efB-v0-W4h" id="nm7-p6-gAS"/>
-                        <outlet property="l_coverArt" destination="aeK-vx-HQd" id="600-to-ThA"/>
+                        <outlet property="l_coverArt" destination="PKa-Mm-8J8" id="6WV-q1-1dk"/>
                         <outlet property="l_title" destination="2Y0-FB-piI" id="ikw-0E-muT"/>
+                        <outlet property="l_unblurredCoverArt" destination="6Av-Ti-TWv" id="Ib1-MQ-Fjc"/>
                         <outlet property="v_controlsView" destination="jfl-Is-q9D" id="P05-t1-IgL"/>
                         <outlet property="v_visualEffectsImageView" destination="uVW-de-BHb" id="YAO-rd-3Tw"/>
                     </connections>
