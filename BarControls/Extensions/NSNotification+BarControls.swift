@@ -25,4 +25,8 @@ extension NSNotification.Name {
     static var ShuffleModeChanged: NSNotification.Name {
         return NSNotification.Name(#function)
     }
+    
+    static var RepeatModeChanged: NSNotification.Name {
+        return NSNotification.Name(#function)
+    }
 }

@@ -179,7 +179,7 @@
                                     <constraint firstAttribute="width" constant="230" id="8Iy-Pw-QKb"/>
                                 </constraints>
                                 <textFieldCell key="cell" title="Show Popup must be selected by at least one option" id="WAE-lg-Fro">
-                                    <font key="font" metaFont="controlContent" size="11"/>
+                                    <font key="font" metaFont="label" size="11"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -548,6 +548,9 @@
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
+                                                <connections>
+                                                    <action selector="toggleRepeat:" target="Zn2-Wi-WND" id="jMa-I8-0GU"/>
+                                                </connections>
                                             </button>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zUh-hA-v7c">
                                                 <rect key="frame" x="117" y="0.0" width="18" height="18"/>
@@ -584,7 +587,7 @@
                                                 </shadow>
                                                 <buttonCell key="cell" type="bevel" title="1:11" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="LGW-RK-SJc">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="controlContent" size="11"/>
+                                                    <font key="font" metaFont="label" size="11"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
@@ -601,7 +604,7 @@
                                                 </shadow>
                                                 <buttonCell key="cell" type="bevel" title="1:11" bezelStyle="rounded" alignment="right" imageScaling="proportionallyDown" inset="2" id="lxT-xE-Sds">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="controlContent" size="11"/>
+                                                    <font key="font" metaFont="label" size="11"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
@@ -663,6 +666,7 @@
                         <outlet property="b_playPause" destination="rKV-nB-gmm" id="LY7-Hc-VTm"/>
                         <outlet property="b_prevTrack" destination="Xbx-7O-pez" id="aDm-a9-lhB"/>
                         <outlet property="b_progressSlider" destination="G4h-CW-rBb" id="9dx-eO-I14"/>
+                        <outlet property="b_toggleRepeat" destination="bys-Pa-xpF" id="fBU-JI-exU"/>
                         <outlet property="b_toggleShuffle" destination="5p1-ck-U1C" id="XMb-Ue-DcQ"/>
                         <outlet property="b_totalDuration" destination="zKw-mm-coP" id="69j-RG-t8q"/>
                         <outlet property="l_artist" destination="efB-v0-W4h" id="nm7-p6-gAS"/>

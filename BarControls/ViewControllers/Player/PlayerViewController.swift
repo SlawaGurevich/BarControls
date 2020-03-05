@@ -16,6 +16,7 @@ class PlayerViewController: NSViewController {
     @IBOutlet weak var b_currentPosition: NSButton!
     @IBOutlet weak var b_totalDuration: NSButton!
     @IBOutlet weak var b_toggleShuffle: NSButton!
+    @IBOutlet weak var b_toggleRepeat: NSButton!
     
     @IBOutlet weak var l_title: NSTextField!
     @IBOutlet weak var l_artist: NSTextField!
@@ -40,8 +41,11 @@ class PlayerViewController: NSViewController {
     }
     
     @IBAction func toggleShuffle(_ sender: Any) {
-        print(MusicController.shared.shuffling)
         MusicController.shared.setShuffleMode(shuffle: !MusicController.shared.shuffling)
+    }
+    
+    @IBAction func toggleRepeat(_ sender: Any) {
+        MusicController.shared.toggleRepeat()
     }
     
     override func viewWillAppear() {
@@ -115,6 +119,12 @@ class PlayerViewController: NSViewController {
                 self.updateShuffleState(shuffling: MusicController.shared.shuffling)
             }
         )
+        
+        changeObservers.append(
+            NotificationCenter.observe(name: .RepeatModeChanged) {
+                self.updateRepeatMode(repeatMode: MusicController.shared.repeatMode)
+            }
+        )
     }
     
     func removeNotificationObservers() {
@@ -142,6 +152,35 @@ class PlayerViewController: NSViewController {
         }
     }
     
+    func updateRepeatMode(repeatMode: String) {
+        print("repeatMode: \(repeatMode)")
+        NSAnimationContext.runAnimationGroup({(context) -> Void in
+        context.duration = 0.5
+            switch repeatMode {
+                case "off":
+                    if(b_toggleRepeat.image != NSImage(named: NSImage.Name("button-loop")) || b_toggleRepeat.alphaValue != 0.4) {
+                        b_toggleRepeat.animator().image = NSImage(named: NSImage.Name("button-loop"))
+                        b_toggleRepeat.animator().alphaValue = 0.4
+                    }
+                case "all":
+                    if(b_toggleRepeat.image != NSImage(named: NSImage.Name("button-loop")) || b_toggleRepeat.alphaValue != 1) {
+                        b_toggleRepeat.animator().image = NSImage(named: NSImage.Name("button-loop"))
+                        b_toggleRepeat.animator().alphaValue = 1
+                    }
+                case "one":
+                    if(b_toggleRepeat.image != NSImage(named: NSImage.Name("button-loop-one")) || b_toggleRepeat.alphaValue != 1) {
+                        b_toggleRepeat.animator().image = NSImage(named: NSImage.Name("button-loop-one"))
+                        b_toggleRepeat.animator().alphaValue = 1
+                    }
+                default:
+                    if(b_toggleRepeat.image != NSImage(named: NSImage.Name("button-loop")) || b_toggleRepeat.alphaValue != 0.4) {
+                        b_toggleRepeat.animator().image = NSImage(named: NSImage.Name("button-loop"))
+                        b_toggleRepeat.animator().alphaValue = 0.4
+                    }
+            }
+        })
+    }
+    
     func updateShuffleState(shuffling: Bool) {
         NSAnimationContext.runAnimationGroup({(context) -> Void in
             context.duration = 0.5
@@ -158,6 +197,7 @@ class PlayerViewController: NSViewController {
         
         self.updatePlayerStatus(playing: MusicController.shared.isPlaying)
         self.updateShuffleState(shuffling: MusicController.shared.shuffling)
+        self.updateRepeatMode(repeatMode: MusicController.shared.repeatMode)
     }
     
     // Updates the slider position to the given seconds

@@ -78,6 +78,24 @@ extension NSAppleScript {
             """
         }
         
+        case GetRepeatMode = """
+            tell application "Music"
+                if it is running then
+                    set repeatstate to (get song repeat) as text
+                end if
+            end tell
+        """
+        
+        static func SetRepeatMode(_ mode: String) -> String {
+            return """
+            tell application "Music"
+                if it is running then
+                    set song repeat to \(mode)
+                end if
+            end tell
+            """
+        }
+        
         case NextTrack = """
         tell application "Music"
             if it is running then

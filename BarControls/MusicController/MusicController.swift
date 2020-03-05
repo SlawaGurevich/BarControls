@@ -42,6 +42,14 @@ class MusicController {
         }
     }
     
+    var repeatMode: String = "off" {
+        didSet {
+            if oldValue != repeatMode {
+                NotificationCenter.post(name: .RepeatModeChanged)
+            }
+        }
+    }
+    
     // MARK: - Functions
     func runScript(script: String) {
         NSAppleScript.run(code: script, completionHandler: {_,_,_ in})
@@ -57,6 +65,19 @@ class MusicController {
     
     func prevTrack() {
         runScript(script: NSAppleScript.appleScripts.PrevTrack.rawValue)
+    }
+    
+    func toggleRepeat() {
+        switch repeatMode {
+            case "off":
+                NSAppleScript.run(code: NSAppleScript.appleScripts.SetRepeatMode("all"), completionHandler: {_,_,_ in })
+            case "all":
+                NSAppleScript.run(code: NSAppleScript.appleScripts.SetRepeatMode("one"), completionHandler: {_,_,_ in })
+            case "one":
+                NSAppleScript.run(code: NSAppleScript.appleScripts.SetRepeatMode("off"), completionHandler: {_,_,_ in })
+            default:
+                NSAppleScript.run(code: NSAppleScript.appleScripts.SetRepeatMode("off"), completionHandler: {_,_,_ in })
+        }
     }
     
     func setShuffleMode(shuffle: Bool) {
@@ -81,7 +102,12 @@ class MusicController {
             if success {
                 self.shuffling = (output!.data.stringValue == "true")
             }
-            
+        }
+        
+        NSAppleScript.run(code: NSAppleScript.appleScripts.GetRepeatMode.rawValue) { (success, output, errors) in
+            if success {
+                self.repeatMode = (output!.data.stringValue)
+            }
         }
 
         NSAppleScript.run(code: NSAppleScript.appleScripts.GetCurrentPlayerState.rawValue) { (success, output, errors) in
