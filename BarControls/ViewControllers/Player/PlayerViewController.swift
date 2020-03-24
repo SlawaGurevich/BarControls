@@ -44,7 +44,7 @@ class PlayerViewController: NSViewController {
     }
     
     @IBAction func toggleShuffle(_ sender: Any) {
-        MusicController.shared.setShuffleMode(shuffle: !MusicController.shared.shuffling)
+        MusicController.shared.toggleShuffleMode()
     }
     
     @IBAction func toggleRepeat(_ sender: Any) {
@@ -56,18 +56,17 @@ class PlayerViewController: NSViewController {
         super.viewWillAppear()
         
         if let track = MusicController.shared.currentTrack {
-            updateView(with: track)
-            
             v_controlsView.alphaValue = 0.99
             v_visualEffectsImageView.alphaValue = 1
             l_unblurredCoverArt.alphaValue = 0
+            
+            updateView(with: track)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addMouseTrackingArea()
-        print("view did load")
     }
     
     override func viewDidAppear() {
@@ -94,7 +93,7 @@ class PlayerViewController: NSViewController {
             l_unblurredCoverArt.animator().alphaValue = 0
             
         }) {
-            print("Animation done")
+            
         }
     }
 
@@ -107,7 +106,7 @@ class PlayerViewController: NSViewController {
                 v_controlsView.animator().alphaValue = 0
                 
             }) {
-                print("Animation done")
+                
             }
         }
     }
@@ -129,23 +128,32 @@ class PlayerViewController: NSViewController {
             }
         )
         
-        changeObservers.append(
-            NotificationCenter.observe(name: .PlayerStateDidChange) {
-                self.updatePlayerStatus(playing: MusicController.shared.isPlaying)
-            }
-        )
         
         changeObservers.append(
-            NotificationCenter.observe(name: .ShuffleModeChanged) {
-                self.updateShuffleState(shuffling: MusicController.shared.shuffling)
+            NotificationCenter.observe(name: .PlayerPropsDidChange) {
+                self.updatePlayerStatus(playing: MusicController.shared.currentProps!.isPlaying)
+                self.updateShuffleState(shuffling: MusicController.shared.currentProps!.isShuffling)
+                self.updateRepeatMode(repeatMode: MusicController.shared.currentProps!.repeatMode)
             }
         )
-        
-        changeObservers.append(
-            NotificationCenter.observe(name: .RepeatModeChanged) {
-                self.updateRepeatMode(repeatMode: MusicController.shared.repeatMode)
-            }
-        )
+//
+//        changeObservers.append(
+//            NotificationCenter.observe(name: .PlayerStateDidChange) {
+//
+//            }
+//        )
+//
+//        changeObservers.append(
+//            NotificationCenter.observe(name: .ShuffleModeChanged) {
+//
+//            }
+//        )
+//
+//        changeObservers.append(
+//            NotificationCenter.observe(name: .RepeatModeChanged) {
+//
+//            }
+//        )
     }
     
     fileprivate func removeMusicAppChangeObservers() {
@@ -155,18 +163,19 @@ class PlayerViewController: NSViewController {
     }
     
     @IBAction func backFiveSeconds(_ sender: Any) {
-        MusicController.shared.setPlayerPosition(position: b_progressSlider.integerValue > 5 ? b_progressSlider.integerValue - 5 : 0)
+        MusicController.shared.setPlayerPosition(position: b_progressSlider.doubleValue > 5 ? b_progressSlider.doubleValue - 5 : 0)
     }
     
     @IBAction func forwardFiveSeconds(_ sender: Any) {
-        MusicController.shared.setPlayerPosition(position: b_progressSlider.integerValue < Int(b_progressSlider.maxValue) ? b_progressSlider.integerValue + 5 : Int(b_progressSlider.maxValue))
+        MusicController.shared.setPlayerPosition(position: b_progressSlider.doubleValue < Double(b_progressSlider.maxValue) ? b_progressSlider.doubleValue + 5 : Double(b_progressSlider.maxValue))
     }
     
     @IBAction func setPlayerPosition(_ sender: NSSlider) {
-        MusicController.shared.setPlayerPosition(position: sender.integerValue)
+        MusicController.shared.setPlayerPosition(position: sender.doubleValue)
     }
     
     func updatePlayerStatus(playing: Bool) {
+        print("updatePlayerStatus: \(playing)")
         if playing {
             b_playPause.image = NSImage(named: NSImage.Name("button-pause"))
         }
@@ -176,7 +185,7 @@ class PlayerViewController: NSViewController {
     }
     
     func updateRepeatMode(repeatMode: String) {
-        print("repeatMode: \(repeatMode)")
+//        print("repeatMode: \(repeatMode)")
         NSAnimationContext.runAnimationGroup({(context) -> Void in
         context.duration = 0.5
             switch repeatMode {
@@ -207,7 +216,7 @@ class PlayerViewController: NSViewController {
     func updateShuffleState(shuffling: Bool) {
         NSAnimationContext.runAnimationGroup({(context) -> Void in
             context.duration = 0.5
-            self.b_toggleShuffle.animator().alphaValue = MusicController.shared.shuffling ? 1 : 0.4
+            self.b_toggleShuffle.animator().alphaValue = MusicController.shared.currentProps!.isShuffling ? 1 : 0.4
         })
     }
     
@@ -219,9 +228,9 @@ class PlayerViewController: NSViewController {
         self.l_unblurredCoverArt.image = track.coverArt
         self.b_progressSlider.maxValue = Double(track.duration)
         
-        self.updatePlayerStatus(playing: MusicController.shared.isPlaying)
-        self.updateShuffleState(shuffling: MusicController.shared.shuffling)
-        self.updateRepeatMode(repeatMode: MusicController.shared.repeatMode)
+        self.updatePlayerStatus(playing: MusicController.shared.currentProps!.isPlaying)
+        self.updateShuffleState(shuffling: MusicController.shared.currentProps!.isShuffling)
+        self.updateRepeatMode(repeatMode: MusicController.shared.currentProps!.repeatMode)
     }
     
     // Updates the slider position to the given seconds

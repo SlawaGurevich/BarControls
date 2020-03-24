@@ -130,7 +130,7 @@ class StatusItemManager: NSObject {
             let buttonRect = button.convert(statusItem.button!.bounds, to: nil)
             let screenRect = button.window!.convertToScreen(buttonRect)
             
-            let posX = screenRect.origin.x + (screenRect.width / 2) - 10
+            let posX = screenRect.origin.x + (screenRect.width / 2)
             let posY = screenRect.origin.y
             
             detachedWindow.setFrameOrigin(NSPoint(x: posX, y: posY))
@@ -139,15 +139,6 @@ class StatusItemManager: NSObject {
             updateButton()
             
             popover.show(relativeTo: detachedWindow.contentView!.frame, of: detachedWindow.contentView!, preferredEdge: .minY)
-
-
-//            popover.contentViewController?.view.window?.makeKeyAndOrderFront(nil) // Needed so that the window disappears when clicked somewhere else
-            
-            // TO-DO: Rething this
-            // Needed so that the window stays where it is when the menu bar is auto-hidden
-//            if let window = popover.contentViewController?.view.window {
-//                window.parent?.removeChildWindow(window)
-//            }
         
             NSApp.activate(ignoringOtherApps: true)
         } else {

@@ -29,4 +29,8 @@ extension NSNotification.Name {
     static var RepeatModeChanged: NSNotification.Name {
         return NSNotification.Name(#function)
     }
+    
+    static var PlayerPropsDidChange: NSNotification.Name {
+        return NSNotification.Name(#function)
+    }
 }

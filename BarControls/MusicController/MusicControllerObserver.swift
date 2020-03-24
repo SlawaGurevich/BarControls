@@ -11,14 +11,6 @@ import Foundation
 class MusicControllerObserver {
     static let shared = MusicControllerObserver()
     
-    var catalina: Bool {
-        if #available(macOS 10.15, *) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
     var timer: Timer?
     
     func start() {
@@ -26,9 +18,17 @@ class MusicControllerObserver {
             return
         }
         
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { timer in
-            MusicController.shared.updateData()
+//        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { timer in
+//            MusicController.shared.updateData()
+//        })
+//        Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(runUpdate), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: {[weak self] (timer) in
+            self?.runUpdate()
         })
+    }
+    
+    func runUpdate() {
+        MusicController.shared.updateData()
     }
     
     func stop() {

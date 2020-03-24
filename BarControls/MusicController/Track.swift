@@ -7,8 +7,10 @@
 //
 import Cocoa
 import MediaPlayer
+import ScriptingBridge
+import AVKit
 
-class Track {
+class Track: Equatable, Hashable {
     // MARK: - Properties
     let title: String
     let artist: String
@@ -22,6 +24,10 @@ class Track {
         return "\(artist) - \(title)"
     }
     
+    func hash(into hasher: inout Hasher) {
+        hasher.combine("\(self.title)\(self.artist)\(self.album)")
+    }
+    
     init(title: String, artist: String, album: String, duration: Int, coverArt: NSImage) {
         self.title = title
         self.artist = artist
@@ -30,50 +36,34 @@ class Track {
         self.coverArt = coverArt
     }
     
-    convenience init?(fromList list: [Int: String]) {
-        var filepath: String = ""
+    convenience init?(fromTrack track: iTunesTrack) {
+        let dict = track.properties as! Dictionary<String, Any>
+        let filepath = "\(dict["location"] ?? "")"
+        var artwork: NSImage? = NSImage(named: NSImage.Name("cover-placeholder"))!
+        let metadata = AVURLAsset(url: NSURL(string: filepath)! as URL).commonMetadata
+        let artworkItems = AVMetadataItem.metadataItems(from: metadata, filteredByIdentifier: AVMetadataIdentifier.commonIdentifierArtwork)
         
-        for entry in list {
-            if entry.value.contains("file:") {
-                filepath = entry.value
-                break
+        if let artworkItem = artworkItems.first {
+            if let imageData = artworkItem.dataValue {
+                artwork = NSImage(data: imageData) ?? NSImage(named: NSImage.Name("cover-placeholder"))!
+                artwork?.size = NSSize(width: 216, height: 216)
             }
         }
-
-        if filepath != "" {
-            let asset = AVURLAsset(url: NSURL(string: filepath)! as URL)
-
-            var t_title: String = "Unknown"
-            var t_artist: String = "Unknown"
-            var t_album: String = "Unknown"
-            var t_duration: Int = 0
-            var t_coverArt: NSImage = NSImage()
-
-            t_duration = Int(asset.duration.seconds)
-
-            for metadata in asset.metadata {
-                switch metadata.commonKey?.rawValue {
-                    case "title":
-                        t_title = metadata.stringValue!
-                    case "artist":
-                        t_artist = metadata.stringValue!
-                    case "albumName":
-                        t_album = metadata.stringValue!
-                    case "artwork":
-                        if let image = NSImage(data: metadata.dataValue!) ?? NSImage(named: NSImage.Name("cover-placeholder")) {
-                            image.size = NSSize(width: 216, height: 216)
-                            t_coverArt = image
-                        }
-                    default:
-                        continue
-                }
-            }
-
-            self.init(title: t_title, artist: t_artist, album: t_album, duration: t_duration, coverArt: t_coverArt)
-            return
-        }
         
-        return nil
+//        print("Title: \(dict["name"] as! String),\nArtist: \(dict["artist"] as! String != "" ? dict["artist"] as! String : dict["albumArtist"] as! String),\nAlbum: \(dict["album"] as! String), Duration: \(dict["duration"] as! NSNumber)")
+//                print("==================================================")
+
+        self.init(title: "\(dict["name"] as! String)",
+            artist: "\(dict["artist"] as! String != "" ? dict["artist"] as! String : dict["albumArtist"] as! String)",
+            album: "\(dict["album"] as! String)",
+            duration: Int(truncating: dict["duration"] as! NSNumber),
+            coverArt: artwork!)
+        
+        artwork = nil
+        return
     }
     
+    static func == (one: Track, two: Track) -> Bool {
+        return one.displayText == two.displayText
+    }
 }

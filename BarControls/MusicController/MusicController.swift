@@ -8,13 +8,33 @@
 
 import Foundation
 import AppKit
+import ScriptingBridge
 
 class MusicController {
     static let shared = MusicController()
     
+    let trackCache: NSCache<NSString, Track>
+    let sbCache: NSCache<NSString, SBApplication>
+    let propCache: NSCache<NSString, PlayerProps>
+    let iTunesApplication: AnyObject;
+    
+    init() {
+        if #available(macOS 10.15, *) {
+            iTunesApplication = SBApplication(bundleIdentifier: "com.apple.Music")!
+        } else {
+            iTunesApplication = SBApplication(bundleIdentifier: "com.apple.iTunes")!
+        }
+
+        trackCache = NSCache<NSString, Track>()
+        sbCache = NSCache<NSString, SBApplication>()
+        propCache = NSCache<NSString, PlayerProps>()
+    }
+    
     var currentTrack: Track? {
         didSet {
-            NotificationCenter.post(name: .TrackDataDidChange)
+            if oldValue != currentTrack {
+                NotificationCenter.post(name: .TrackDataDidChange)
+            }
         }
     }
     
@@ -26,102 +46,124 @@ class MusicController {
         }
     }
     
-    var isPlaying: Bool = false {
+    var currentProps: PlayerProps? {
         didSet {
-            if oldValue != isPlaying {
-                NotificationCenter.post(name: .PlayerStateDidChange)
-            }
-        }
-    }
-    
-    var shuffling: Bool = false {
-        didSet {
-            if oldValue != shuffling {
-                NotificationCenter.post(name: .ShuffleModeChanged)
-            }
-        }
-    }
-    
-    var repeatMode: String = "off" {
-        didSet {
-            if oldValue != repeatMode {
-                NotificationCenter.post(name: .RepeatModeChanged)
+            if oldValue != currentProps {
+                NotificationCenter.post(name: .PlayerPropsDidChange)
             }
         }
     }
     
     // MARK: - Functions
-    func runScript(script: String) {
-        NSAppleScript.run(code: script, completionHandler: {_,_,_ in})
+//    func runScript(script: String) {
+//        OSAScript.run(code: script, completionHandler: {_,_,_ in})
+//    }
+    
+    func getState() -> Int {
+        switch iTunesApplication.playerState!
+        {
+            case iTunesEPlS.stopped:
+                return 1
+            
+            case iTunesEPlS.playing:
+                return 2
+            
+            case iTunesEPlS.paused:
+                return 3
+            
+            case iTunesEPlS.fastForwarding:
+                return 4
+            
+            case iTunesEPlS.rewinding:
+                return 5
+        }
     }
     
+    func getRepeat() -> String {
+        switch iTunesApplication.songRepeat! {
+            case iTunesERpt.off:
+                return "off"
+            
+            case iTunesERpt.one:
+                return "one"
+            
+            case iTunesERpt.all:
+                return "all"
+        }
+    }
+    
+    
     func playPause() {
-        runScript(script: NSAppleScript.appleScripts.PausePlay.rawValue)
+        iTunesApplication.playpause()
     }
     
     func nextTrack() {
-        runScript(script: NSAppleScript.appleScripts.NextTrack.rawValue)
+        iTunesApplication.nextTrack()
     }
     
     func prevTrack() {
-        runScript(script: NSAppleScript.appleScripts.PrevTrack.rawValue)
+        iTunesApplication.backTrack()
+    }
+    
+    func getShuffle() -> Bool {
+        return iTunesApplication.shuffleEnabled
     }
     
     func toggleRepeat() {
-        switch repeatMode {
+        switch currentProps?.repeatMode {
             case "off":
-                NSAppleScript.run(code: NSAppleScript.appleScripts.SetRepeatMode("all"), completionHandler: {_,_,_ in })
+                iTunesApplication.setSongRepeat(iTunesERpt.all)
             case "all":
-                NSAppleScript.run(code: NSAppleScript.appleScripts.SetRepeatMode("one"), completionHandler: {_,_,_ in })
+                iTunesApplication.setSongRepeat(iTunesERpt.one)
             case "one":
-                NSAppleScript.run(code: NSAppleScript.appleScripts.SetRepeatMode("off"), completionHandler: {_,_,_ in })
+                iTunesApplication.setSongRepeat(iTunesERpt.off)
             default:
-                NSAppleScript.run(code: NSAppleScript.appleScripts.SetRepeatMode("off"), completionHandler: {_,_,_ in })
+                iTunesApplication.setSongRepeat(iTunesERpt.off)
         }
     }
     
-    func setShuffleMode(shuffle: Bool) {
-        NSAppleScript.run(code: NSAppleScript.appleScripts.SetShuffleMode(shuffle), completionHandler: {_,_,_ in })
+    func toggleShuffleMode() {
+        iTunesApplication.setShuffleEnabled(!iTunesApplication.shuffleEnabled)
     }
     
-    func setPlayerPosition(position: Int) {
-        NSAppleScript.run(code: NSAppleScript.appleScripts.SetPlayerPosition(position), completionHandler: {_,_,_ in })
+    func setPlayerPosition(position: Double) {
+        iTunesApplication.setPlayerPosition(position)
     }
     
     func updateData() {
-        // Update current track
-        NSAppleScript.run(code: NSAppleScript.appleScripts.GetTrackData.rawValue) { (success, output, errors) in
-            if success {
-                // Get the new track
-                let newTrack = Track(fromList: output!.listItems())
-                self.currentTrack = newTrack
+        self.currentPlayerPosition = Int(Double(iTunesApplication.playerPosition).rounded())
+        
+        if let cachedPlayerProps = propCache.object(forKey: "CachedProps") {
+            let props = PlayerProps(playing: getState() == 2, shuffling: getShuffle(), repeatMode: getRepeat())
+            if cachedPlayerProps == props {
+//                print("same props")
+            } else {
+                propCache.setObject(props, forKey: "CachedProps")
+                self.currentProps = props
+                print("PROPS CHANGED\nShuffle: \(cachedPlayerProps.isShuffling) Repeat: \(cachedPlayerProps.repeatMode) Playing: \(cachedPlayerProps.isPlaying)\n===================")
             }
+        } else {
+            let props = PlayerProps(playing: getState() == 2, shuffling: getShuffle(), repeatMode: getRepeat())
+            propCache.setObject(props, forKey: "CachedProps")
+            self.currentProps = propCache.object(forKey: "CachedProps")
         }
         
-        NSAppleScript.run(code: NSAppleScript.appleScripts.GetShuffleMode.rawValue) { (success, output, errors) in
-            if success {
-                self.shuffling = (output!.data.stringValue == "true")
-            }
-        }
-        
-        NSAppleScript.run(code: NSAppleScript.appleScripts.GetRepeatMode.rawValue) { (success, output, errors) in
-            if success {
-                self.repeatMode = (output!.data.stringValue)
-            }
-        }
-
-        NSAppleScript.run(code: NSAppleScript.appleScripts.GetCurrentPlayerState.rawValue) { (success, output, errors) in
-            if success {
-                self.isPlaying = (output!.data.stringValue == "playing")
-            }
-        }
-
-        NSAppleScript.run(code: NSAppleScript.appleScripts.GetCurrentPlayerPosition.rawValue) { (success, output, errors) in
-            if success {
-                var newPosition = Double(output!.cleanDescription) ?? 0
-                newPosition.round(.down)
-
-                self.currentPlayerPosition = Int(newPosition)
+        if iTunesApplication.currentTrack != nil {
+            if let cachedTrack = trackCache.object(forKey: "CachedTrack") {
+                var track = Track(fromTrack: iTunesApplication.currentTrack)
+                if cachedTrack == track {
+//                    print("same track")
+                } else {
+                    trackCache.setObject(track!, forKey: "CachedTrack")
+                    self.currentTrack = track!
+                    print("TRACK CHANGED\nArtist: \(track!.artist)\nTitle: \(track!.title)")
+                    track = nil
+                }
+            } else {
+                if let track = Track(fromTrack: iTunesApplication.currentTrack) {
+                    trackCache.setObject(track, forKey: "CachedTrack")
+                    self.currentTrack = trackCache.object(forKey: "CachedTrack")
+                }
             }
         }
     }
