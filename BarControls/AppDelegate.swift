@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         MusicControllerObserver.shared.start()
         StatusItemManager.shared.initManager()
     }
-
+    
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
