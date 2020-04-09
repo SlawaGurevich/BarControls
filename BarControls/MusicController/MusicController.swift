@@ -34,7 +34,7 @@ class MusicController {
         didSet {
             if oldValue != currentTrack {
                 NotificationCenter.post(name: .TrackDataDidChange)
-            }
+            }   
         }
     }
     
@@ -150,7 +150,7 @@ class MusicController {
         
         if iTunesApplication.currentTrack != nil {
             if let cachedTrack = trackCache.object(forKey: "CachedTrack") {
-                var track = Track(fromTrack: iTunesApplication.currentTrack)
+                var track = Track(fromTrack: iTunesApplication.currentTrack as! iTunesFileTrack)
                 if cachedTrack == track {
 //                    print("same track")
                 } else {
@@ -160,7 +160,7 @@ class MusicController {
                     track = nil
                 }
             } else {
-                if let track = Track(fromTrack: iTunesApplication.currentTrack) {
+                if let track = Track(fromTrack: iTunesApplication.currentTrack as! iTunesFileTrack) {
                     trackCache.setObject(track, forKey: "CachedTrack")
                     self.currentTrack = trackCache.object(forKey: "CachedTrack")
                 }

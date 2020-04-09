@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import AVKit
 
 class PlayerViewController: NSViewController {
     // MARK: - Outlets
@@ -220,12 +221,30 @@ class PlayerViewController: NSViewController {
         })
     }
     
+    func getCover(filepath: URL) -> NSImage {
+        var artwork: NSImage = NSImage(named: NSImage.Name("cover-placeholder"))!
+        
+        let metadata = AVURLAsset(url: filepath).commonMetadata
+        let artworkItems = AVMetadataItem.metadataItems(from: metadata, filteredByIdentifier: AVMetadataIdentifier.commonIdentifierArtwork)
+        
+        if let artworkItem = artworkItems.first {
+            if let imageData = artworkItem.dataValue {
+                artwork = NSImage(data: imageData) ?? NSImage(named: NSImage.Name("cover-placeholder"))!
+                artwork.size = NSSize(width: 216, height: 216)
+            }
+        }
+        
+        return artwork
+    }
+    
     func updateView(with track: Track) {
+        let coverArt = getCover(filepath: track.path)
+        
         self.l_title.stringValue = track.title
         self.l_artist.stringValue = track.artist
         self.b_totalDuration.title = "\(track.duration / 60):\( track.duration % 60 < 10 ? "0" : "" )\(track.duration % 60)"
-        self.l_coverArt.image = track.coverArt
-        self.l_unblurredCoverArt.image = track.coverArt
+        self.l_coverArt.image = coverArt
+        self.l_unblurredCoverArt.image = coverArt
         self.b_progressSlider.maxValue = Double(track.duration)
         
         self.updatePlayerStatus(playing: MusicController.shared.currentProps!.isPlaying)

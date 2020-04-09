@@ -231,7 +231,7 @@
                                     <constraint firstAttribute="width" constant="225" id="Nlq-ty-HLi"/>
                                 </constraints>
                                 <textFieldCell key="cell" title="Show Popup must be selected by at least one option" id="WAE-lg-Fro">
-                                    <font key="font" metaFont="menu" size="11"/>
+                                    <font key="font" metaFont="message" size="11"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -603,7 +603,7 @@
                                                 </shadow>
                                                 <buttonCell key="cell" type="bevel" title="0:00" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="LGW-RK-SJc">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="menu" size="11"/>
+                                                    <font key="font" metaFont="message" size="11"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="White"/>
                                                 <connections>
@@ -620,7 +620,7 @@
                                                 </shadow>
                                                 <buttonCell key="cell" type="bevel" title="0:00" bezelStyle="rounded" alignment="right" imageScaling="proportionallyDown" inset="2" id="lxT-xE-Sds">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="menu" size="11"/>
+                                                    <font key="font" metaFont="message" size="11"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="White"/>
                                                 <connections>
