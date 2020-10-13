@@ -20,6 +20,7 @@ class UserPreferences {
         case showAlbum
         
         case hideControls
+        case startedOnce
     }
     
     enum LeftClickAction: String {
@@ -59,6 +60,14 @@ class UserPreferences {
         }
         set {
             self.write(value: newValue, toKey: self.Keys.startAtLogin.rawValue)
+        }
+    }
+    
+    class var startedOnce: Bool {
+        get {
+            return self.readBool(fromKey: self.Keys.startedOnce.rawValue) ?? false
+        } set {
+            self.write(value: newValue, toKey: self.Keys.startedOnce.rawValue)
         }
     }
     

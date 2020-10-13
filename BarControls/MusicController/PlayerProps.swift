@@ -13,9 +13,29 @@ class PlayerProps: Equatable {
         return lhs.isPlaying == rhs.isPlaying && lhs.isShuffling == rhs.isShuffling && lhs.repeatMode == rhs.repeatMode
     }
     
-    var isPlaying: Bool
-    var isShuffling: Bool
-    var repeatMode: String
+    var isPlaying: Bool {
+        didSet {
+            if oldValue != isPlaying {
+                NotificationCenter.post(name: .PlayerPropsDidChange)
+            }
+        }
+    }
+    
+    var isShuffling: Bool {
+       didSet {
+           if oldValue != isShuffling {
+               NotificationCenter.post(name: .PlayerPropsDidChange)
+           }
+       }
+   }
+    
+    var repeatMode: String {
+       didSet {
+           if oldValue != repeatMode {
+               NotificationCenter.post(name: .PlayerPropsDidChange)
+           }
+       }
+   }
 
     init(playing: Bool, shuffling: Bool, repeatMode: String) {
         self.isPlaying = playing

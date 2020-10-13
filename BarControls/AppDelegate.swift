@@ -13,6 +13,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItemManager: StatusItemManager!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        if( !UserPreferences.startedOnce ) {
+            UserPreferences.showTitle = true
+            UserPreferences.showAlbum = true
+            UserPreferences.startedOnce = true
+        }
+        
         MusicControllerObserver.shared.start()
         StatusItemManager.shared.initManager()
     }
@@ -20,7 +26,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
-
-
 }
 

@@ -113,6 +113,10 @@ class StatusItemManager: NSObject {
         MusicController.shared.prevTrack()
     }
     
+    func popoverShown() -> Bool {
+        return popover?.isShown ?? false
+    }
+    
     func playerShowPopover() {
         guard let popover = popover, let button = statusItem.button else { return }
         

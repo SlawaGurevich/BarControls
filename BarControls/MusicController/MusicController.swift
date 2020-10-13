@@ -131,33 +131,43 @@ class MusicController {
     }
     
     func updateData() {
-        self.currentPlayerPosition = Int(Double(iTunesApplication.playerPosition).rounded())
-        
-        if let cachedPlayerProps = propCache.object(forKey: "CachedProps") {
-            let props = PlayerProps(playing: getState() == 2, shuffling: getShuffle(), repeatMode: getRepeat())
-            if cachedPlayerProps == props {
-//                print("same props")
+//        if( StatusItemManager.shared.popoverShown() || self.currentPlayerPosition == nil ) {
+            self.currentPlayerPosition = Int(Double(iTunesApplication.playerPosition).rounded())
+            
+            if let cachedPlayerProps = propCache.object(forKey: "CachedProps") {
+//                let props = PlayerProps(playing: getState() == 2, shuffling: getShuffle(), repeatMode: getRepeat())
+                if cachedPlayerProps.isPlaying != (getState() == 2) || cachedPlayerProps.isShuffling != getShuffle() || cachedPlayerProps.repeatMode != getRepeat() {
+                    cachedPlayerProps.isPlaying = (getState() == 2)
+                    cachedPlayerProps.isShuffling = getShuffle()
+                    cachedPlayerProps.repeatMode = getRepeat()
+                    propCache.setObject(cachedPlayerProps, forKey: "CachedProps")
+                    self.currentProps = cachedPlayerProps
+//                    print("PROPS CHANGED\nShuffle: \(cachedPlayerProps.isShuffling) Repeat: \(cachedPlayerProps.repeatMode) Playing: \(cachedPlayerProps.isPlaying)\n===================")
+                }
             } else {
+                let props = PlayerProps(playing: getState() == 2, shuffling: getShuffle(), repeatMode: getRepeat())
                 propCache.setObject(props, forKey: "CachedProps")
-                self.currentProps = props
-                print("PROPS CHANGED\nShuffle: \(cachedPlayerProps.isShuffling) Repeat: \(cachedPlayerProps.repeatMode) Playing: \(cachedPlayerProps.isPlaying)\n===================")
+                self.currentProps = propCache.object(forKey: "CachedProps")
             }
-        } else {
-            let props = PlayerProps(playing: getState() == 2, shuffling: getShuffle(), repeatMode: getRepeat())
-            propCache.setObject(props, forKey: "CachedProps")
-            self.currentProps = propCache.object(forKey: "CachedProps")
-        }
+//        }
         
         if iTunesApplication.currentTrack != nil {
-            if let cachedTrack = trackCache.object(forKey: "CachedTrack") {
-                var track = Track(fromTrack: iTunesApplication.currentTrack as! iTunesFileTrack)
-                if cachedTrack == track {
-//                    print("same track")
+            if var cachedTrack = trackCache.object(forKey: "CachedTrack") {
+//                var track = Track(fromTrack: iTunesApplication.currentTrack as! iTunesFileTrack)
+                if (cachedTrack.title == iTunesApplication.currentTrack?.name && cachedTrack.album == iTunesApplication.currentTrack?.album) {
+                    print("same track")
                 } else {
-                    trackCache.setObject(track!, forKey: "CachedTrack")
-                    self.currentTrack = track!
-                    print("TRACK CHANGED\nArtist: \(track!.artist)\nTitle: \(track!.title)")
-                    track = nil
+//                    var track = Track(fromTrack: iTunesApplication.currentTrack as! iTunesFileTrack)
+                    let current = iTunesApplication.currentTrack as! iTunesFileTrack
+                    cachedTrack.path = current.location ?? URL(fileURLWithPath: "/")
+                    cachedTrack.duration = Int(current.duration ?? 0)
+                    cachedTrack.title = current.name ?? "Unknown"
+                    cachedTrack.album = current.album ?? "Unknown"
+                    cachedTrack.artist = (current.artist != nil ? current.artist : current.albumArtist) ?? "Unknown"
+                    
+                    trackCache.setObject(cachedTrack, forKey: "CachedTrack")
+                    self.currentTrack = cachedTrack
+                    print("TRACK CHANGED\nArtist: \(cachedTrack.artist)\nTitle: \(cachedTrack.title)")
                 }
             } else {
                 if let track = Track(fromTrack: iTunesApplication.currentTrack as! iTunesFileTrack) {

@@ -12,11 +12,17 @@ import ScriptingBridge
 
 class Track: Equatable, Hashable {
     // MARK: - Properties
-    let title: String
-    let artist: String
-    let album: String
-    let path: URL
-    let duration: Int
+    var title: String
+    
+    var artist: String {
+        didSet {
+            NotificationCenter.post(name: .TrackDataDidChange)
+        }
+    }
+    
+    var album: String
+    var path: URL
+    var duration: Int
     
     var description: String { return "\(artist) - \(title) [\(duration)]" }
     
